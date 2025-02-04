@@ -1,0 +1,21 @@
+{
+    "signInTitle": "Welcome Back!",
+    "signInDescription": "Take Control of Your Budgets with SmartFin!",
+    "rememberMe": "Remember me",
+    "ForgetPassword": "Forgot Password?",
+    "signIn": "Sign In",
+    "orSignInWith": "Or Sign In With",
+    "orSignupWith": "Or Sign Up With",
+    "signUP": "Sign Up",
+    "signupTitle": "Let's Get Started!",
+    "signupDescription": "Create your Acount now!",
+    "firstName": "First Name",
+    "secondName": "Last Name",
+    "email": "E-mail",
+    "password": "Password",
+    "username": "Username",
+    "iAgreeTo": "I agree to",
+    "privacyPolicy": "Privacy Policy",
+    "and": "and",
+    "termsOfUse": "Terms of Use"
+}
