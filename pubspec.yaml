@@ -9,42 +9,43 @@ environment:
   sdk: ^3.5.1
 
 dependencies:
-  flutter:
-    sdk: flutter
-  flutter_localizations:
-    sdk: flutter
-  intl: ^0.19.0
   build_runner: ^2.4.14
   connectivity_plus: ^6.1.2
   cupertino_icons: ^1.0.8
   fl_chart: ^0.70.2
-  flutter_native_splash: ^2.3.1
+  flutter:
+    sdk: flutter
   flutter_bloc: ^9.0.0
+  flutter_localizations:
+    sdk: flutter
+  flutter_native_splash: ^2.4.4
+  fpdart: ^1.1.1
   get: ^4.6.6
   get_it: ^8.0.3
+  get_storage: ^2.1.1
+  google_sign_in: ^6.2.2
   hugeicons: ^0.0.7
   iconsax: ^0.0.8
+  intl: ^0.19.0
   logger: ^2.5.0
   lottie: ^3.3.1
   shimmer: ^3.0.0
   sqflite: ^2.4.1
-  supabase: ^2.6.2
+  supabase_flutter: ^2.8.3
   url_launcher: ^6.3.1
 
 dev_dependencies:
+  flutter_lints: ^4.0.0
   flutter_test:
     sdk: flutter
-  flutter_lints: ^4.0.0
   intl_utils: ^2.8.4 # Added for Flutter Intl support
 
 flutter:
   uses-material-design: true
   generate: true # Ensures localization files are generated automatically
 
-
-
   assets:
-    - assets/images/
+    - assets/images/animations/
     - assets/logos/
 
   fonts:

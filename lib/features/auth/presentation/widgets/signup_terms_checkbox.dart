@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:smartFin/common/sepetarors/item_seperator.dart';
 import 'package:smartFin/core/constants/colors.dart';
-import 'package:smartFin/core/constants/sizes.dart';
+import 'package:smartFin/features/auth/presentation/controller/signup_controller.dart';
 import 'package:smartFin/generated/l10n.dart';
 
 class SignupTermsCheckbox extends StatelessWidget {
@@ -9,12 +10,17 @@ class SignupTermsCheckbox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
+    final signUpController = SignUpcontroller.instance;
     return Row(children: [
-      const SizedBox(
-        width: MySizes.sm,
-        child: Checkbox(value: true, onChanged: null),
-      ),
+      Obx(() {
+        final isChecked = signUpController.agreeTerms.value;
+        return Checkbox(
+          value: isChecked,
+          onChanged: (value) {
+            signUpController.agreeTerms.value = value ?? false;
+          },
+        );
+      }),
       ItemSperator.halfHorizontal(),
       Text.rich(
         TextSpan(

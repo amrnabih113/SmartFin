@@ -3,7 +3,7 @@ flutter_native_splash:
   color_dark: "#272727"
   image: assets\logos\appLogoGrey.png
   image_dark: assets\logos\appLogoWhite.png
-  android_gravity: center
+
 
   android_12:
     color: "#ffffff"

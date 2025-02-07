@@ -239,6 +239,336 @@ class AppLocalizations {
       args: [],
     );
   }
+
+  /// `User is Null`
+  String get userisNull {
+    return Intl.message(
+      'User is Null',
+      name: 'userisNull',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `User cancelled sign-in.`
+  String get userCancelledSignIn {
+    return Intl.message(
+      'User cancelled sign-in.',
+      name: 'userCancelledSignIn',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please check your internet connection.`
+  String get internetConnectionError {
+    return Intl.message(
+      'Please check your internet connection.',
+      name: 'internetConnectionError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Logging in...`
+  String get loggingIn {
+    return Intl.message(
+      'Logging in...',
+      name: 'loggingIn',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Oh Snap!`
+  String get ohSnap {
+    return Intl.message(
+      'Oh Snap!',
+      name: 'ohSnap',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No Internet Connection`
+  String get noInternetConnection {
+    return Intl.message(
+      'No Internet Connection',
+      name: 'noInternetConnection',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Login failed. Please check your credentials.`
+  String get logInFailedTryAgain {
+    return Intl.message(
+      'Login failed. Please check your credentials.',
+      name: 'logInFailedTryAgain',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sign up failed. Please check your credentials.`
+  String get signUpFailedTryAgain {
+    return Intl.message(
+      'Sign up failed. Please check your credentials.',
+      name: 'signUpFailedTryAgain',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sign up successful. Please check your e-mail for activation link.`
+  String get signUpSuccessful {
+    return Intl.message(
+      'Sign up successful. Please check your e-mail for activation link.',
+      name: 'signUpSuccessful',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Google Sign-In failed. Try again.`
+  String get googleSignInFailed {
+    return Intl.message(
+      'Google Sign-In failed. Try again.',
+      name: 'googleSignInFailed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Google Sign-In cancelled.`
+  String get googleSignInCancelled {
+    return Intl.message(
+      'Google Sign-In cancelled.',
+      name: 'googleSignInCancelled',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Signing you up...`
+  String get signingUp {
+    return Intl.message(
+      'Signing you up...',
+      name: 'signingUp',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Something went wrong. Please try again later.`
+  String get somethingWentWrong {
+    return Intl.message(
+      'Something went wrong. Please try again later.',
+      name: 'somethingWentWrong',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You must agree to our Terms of Use and Privacy Policy.`
+  String get agreeTerms {
+    return Intl.message(
+      'You must agree to our Terms of Use and Privacy Policy.',
+      name: 'agreeTerms',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Email already exists. Please use a different email.`
+  String get emailAlreadyExists {
+    return Intl.message(
+      'Email already exists. Please use a different email.',
+      name: 'emailAlreadyExists',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Reset your Password`
+  String get resetPassword {
+    return Intl.message(
+      'Reset your Password',
+      name: 'resetPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Forgot Password?`
+  String get forgetPasswordTitle {
+    return Intl.message(
+      'Forgot Password?',
+      name: 'forgetPasswordTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter your email address to receive instructions for resetting your password.`
+  String get forgetPasswordDescription {
+    return Intl.message(
+      'Enter your email address to receive instructions for resetting your password.',
+      name: 'forgetPasswordDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Password reset successful. Please check your e-mail for new password.`
+  String get resetPasswordSuccessful {
+    return Intl.message(
+      'Password reset successful. Please check your e-mail for new password.',
+      name: 'resetPasswordSuccessful',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Password reset failed. Please try again later.`
+  String get resetPasswordFailed {
+    return Intl.message(
+      'Password reset failed. Please try again later.',
+      name: 'resetPasswordFailed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Submit`
+  String get submit {
+    return Intl.message(
+      'Submit',
+      name: 'submit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Processing your request...`
+  String get processingYourRequest {
+    return Intl.message(
+      'Processing your request...',
+      name: 'processingYourRequest',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Email sent successfully.`
+  String get emailSentTitle {
+    return Intl.message(
+      'Email sent successfully.',
+      name: 'emailSentTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please check your e-mail for instructions on how to reset your password.`
+  String get resetPasswordEmailSentDescription {
+    return Intl.message(
+      'Please check your e-mail for instructions on how to reset your password.',
+      name: 'resetPasswordEmailSentDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Done`
+  String get done {
+    return Intl.message(
+      'Done',
+      name: 'done',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Change your password`
+  String get changeYourPasswordTitle {
+    return Intl.message(
+      'Change your password',
+      name: 'changeYourPasswordTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your Account Security is Our Priority! We've Sent You a Secure Link to Safely Change Your Password and Keep Your Account Protected.`
+  String get changeYourPasswordSubTitle {
+    return Intl.message(
+      'Your Account Security is Our Priority! We\'ve Sent You a Secure Link to Safely Change Your Password and Keep Your Account Protected.',
+      name: 'changeYourPasswordSubTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Resend Email`
+  String get resendEmail {
+    return Intl.message(
+      'Resend Email',
+      name: 'resendEmail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Continue`
+  String get Continue {
+    return Intl.message(
+      'Continue',
+      name: 'Continue',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirm Email`
+  String get confirmEmail {
+    return Intl.message(
+      'Confirm Email',
+      name: 'confirmEmail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please check you email to vreify it so you can enjoy controlling your budgets`
+  String get confirmEmailSubtitle {
+    return Intl.message(
+      'Please check you email to vreify it so you can enjoy controlling your budgets',
+      name: 'confirmEmailSubtitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your account successfully created!`
+  String get yourAccountCreatedTitle {
+    return Intl.message(
+      'Your account successfully created!',
+      name: 'yourAccountCreatedTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Welcome to Your Ultimate Shopping Destination: Your Account is Created, Unleash the Joy of Seamless Online Shopping!`
+  String get yourAccountCreatedSubTitle {
+    return Intl.message(
+      'Welcome to Your Ultimate Shopping Destination: Your Account is Created, Unleash the Joy of Seamless Online Shopping!',
+      name: 'yourAccountCreatedSubTitle',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<AppLocalizations> {
