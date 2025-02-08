@@ -43,7 +43,6 @@ class SignInController extends GetxController {
 
   @override
   void onInit() {
-    localStorage.write(MyTexts.isFirstTime, false);
     emailController.text = localStorage.read(MyTexts.rememberMeEmail) ?? "";
     passwordController.text =
         localStorage.read(MyTexts.rememberMePassword) ?? "";

@@ -50,6 +50,66 @@ class AppLocalizations {
     return Localizations.of<AppLocalizations>(context, AppLocalizations);
   }
 
+  /// `Track Your Spending, Take Control`
+  String get onboardingTitle1 {
+    return Intl.message(
+      'Track Your Spending, Take Control',
+      name: 'onboardingTitle1',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Easily monitor where your money goes, set spending limits, and make informed financial decisions to stay on top of your budget.`
+  String get onboardingSubtitle1 {
+    return Intl.message(
+      'Easily monitor where your money goes, set spending limits, and make informed financial decisions to stay on top of your budget.',
+      name: 'onboardingSubtitle1',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Smart Budgeting, Effortless Saving`
+  String get onboardingTitle2 {
+    return Intl.message(
+      'Smart Budgeting, Effortless Saving',
+      name: 'onboardingTitle2',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Create personalized budgets, track your expenses automatically, and save money without the stress of manual calculations.`
+  String get onboardingSubtitle2 {
+    return Intl.message(
+      'Create personalized budgets, track your expenses automatically, and save money without the stress of manual calculations.',
+      name: 'onboardingSubtitle2',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your Money, Your Rules`
+  String get onboardingTitle3 {
+    return Intl.message(
+      'Your Money, Your Rules',
+      name: 'onboardingTitle3',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Take full control of your finances with flexible budgeting tools, real-time expense tracking, and insights to help you reach your financial goals.`
+  String get onboardingSubtitle3 {
+    return Intl.message(
+      'Take full control of your finances with flexible budgeting tools, real-time expense tracking, and insights to help you reach your financial goals.',
+      name: 'onboardingSubtitle3',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Welcome Back!`
   String get signInTitle {
     return Intl.message(
@@ -225,6 +285,16 @@ class AppLocalizations {
     return Intl.message(
       'and',
       name: 'and',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Skip`
+  String get skip {
+    return Intl.message(
+      'Skip',
+      name: 'skip',
       desc: '',
       args: [],
     );

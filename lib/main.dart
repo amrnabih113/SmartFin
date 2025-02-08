@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:smartFin/config/routing/screen_redirect.dart';
 import 'package:smartFin/core/constants/supabase_constants.dart';
 import 'package:smartFin/di.dart';
@@ -17,6 +18,7 @@ void main() async {
     url: SupabaseConstants.url,
     anonKey: SupabaseConstants.anonKey,
   );
+  await GetStorage.init();
   await Di.init();
   Get.put(ScreenRedirect(sl(), sl()));
   runApp(const MyApp());

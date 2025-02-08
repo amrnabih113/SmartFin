@@ -59,6 +59,18 @@ class MessageLookup extends MessageLookupByLibrary {
         "noInternetConnection":
             MessageLookupByLibrary.simpleMessage("No Internet Connection"),
         "ohSnap": MessageLookupByLibrary.simpleMessage("Oh Snap!"),
+        "onboardingSubtitle1": MessageLookupByLibrary.simpleMessage(
+            "Easily monitor where your money goes, set spending limits, and make informed financial decisions to stay on top of your budget."),
+        "onboardingSubtitle2": MessageLookupByLibrary.simpleMessage(
+            "Create personalized budgets, track your expenses automatically, and save money without the stress of manual calculations."),
+        "onboardingSubtitle3": MessageLookupByLibrary.simpleMessage(
+            "Take full control of your finances with flexible budgeting tools, real-time expense tracking, and insights to help you reach your financial goals."),
+        "onboardingTitle1": MessageLookupByLibrary.simpleMessage(
+            "Track Your Spending, Take Control"),
+        "onboardingTitle2": MessageLookupByLibrary.simpleMessage(
+            "Smart Budgeting, Effortless Saving"),
+        "onboardingTitle3":
+            MessageLookupByLibrary.simpleMessage("Your Money, Your Rules"),
         "orSignInWith": MessageLookupByLibrary.simpleMessage("Or Sign In With"),
         "orSignupWith": MessageLookupByLibrary.simpleMessage("Or Sign Up With"),
         "password": MessageLookupByLibrary.simpleMessage("Password"),
@@ -90,6 +102,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Create your Acount now!"),
         "signupTitle":
             MessageLookupByLibrary.simpleMessage("Let\'s Get Started!"),
+        "skip": MessageLookupByLibrary.simpleMessage("Skip"),
         "somethingWentWrong": MessageLookupByLibrary.simpleMessage(
             "Something went wrong. Please try again later."),
         "submit": MessageLookupByLibrary.simpleMessage("Submit"),

@@ -4,7 +4,6 @@ import 'package:get_storage/get_storage.dart';
 import 'package:smartFin/features/auth/presentation/pages/verify_email_screen.dart';
 import 'package:smartFin/navigation_menu.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-
 import 'package:smartFin/core/constants/texts.dart';
 import 'package:smartFin/core/local_storage/my_local_storage.dart';
 import 'package:smartFin/features/auth/presentation/pages/sign_in_screen.dart';
@@ -12,10 +11,10 @@ import 'package:smartFin/features/onboarding/presentation/pages/onboarding_scree
 
 class ScreenRedirect extends GetxController {
   static ScreenRedirect get instance => Get.find();
-  final GetStorage deviceStorage;
+  final GetStorage localStorage;
   final SupabaseClient supabase;
   ScreenRedirect(
-    this.deviceStorage,
+    this.localStorage,
     this.supabase,
   );
 
@@ -37,10 +36,14 @@ class ScreenRedirect extends GetxController {
             ));
       }
     } else {
-      deviceStorage.writeIfNull(MyTexts.isFirstTime, true);
-      deviceStorage.read(MyTexts.isFirstTime) != true
+      print(
+          "=======redirect========${localStorage.read<bool>(MyTexts.isFirstTime)}");
+      localStorage.writeIfNull(MyTexts.isFirstTime, true);
+      print(
+          "=======after write if null ========${localStorage.read<bool>(MyTexts.isFirstTime)}");
+      localStorage.read(MyTexts.isFirstTime) != true
           ? Get.offAll(() => const SignInScreen())
-          : Get.offAll(() => const OnboardingScreen());
+          : Get.offAll(() => const OnBoardingScreen());
     }
   }
 }
