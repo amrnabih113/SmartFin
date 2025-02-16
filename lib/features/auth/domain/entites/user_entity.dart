@@ -16,4 +16,5 @@ class UserEntity {
     required this.phoneNumber,
     required this.imageurl,
   });
+
 }

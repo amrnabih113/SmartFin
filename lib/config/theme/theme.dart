@@ -1,15 +1,14 @@
-
 import 'package:flutter/material.dart';
 import 'package:smartFin/config/theme/custom_themes/appbar_theme.dart';
 import 'package:smartFin/config/theme/custom_themes/bottom_sheet_theme.dart';
 import 'package:smartFin/config/theme/custom_themes/checkbox_theme.dart';
 import 'package:smartFin/config/theme/custom_themes/chip_theme.dart';
 import 'package:smartFin/config/theme/custom_themes/elevation_button_theme.dart';
+import 'package:smartFin/config/theme/custom_themes/filled_buttton_theme.dart';
 import 'package:smartFin/config/theme/custom_themes/outlined_buttom_theme.dart';
 import 'package:smartFin/config/theme/custom_themes/text_field_theme.dart';
 import 'package:smartFin/config/theme/custom_themes/text_theme.dart';
 import 'package:smartFin/core/constants/colors.dart';
-
 
 class MyAppTheme {
   MyAppTheme._();
@@ -27,6 +26,7 @@ class MyAppTheme {
     bottomSheetTheme: MyBottomSheetTheme.lightBottomSheetTheme,
     inputDecorationTheme: MyTextFieldTheme.lightInputDecorationTheme,
     elevatedButtonTheme: MyElevationButtonTheme.lightelevatedButtonTheme,
+    filledButtonTheme: MyFilledButtonTheme.lightFilledButtonTheme,
   );
   static ThemeData darkTheme = ThemeData(
     useMaterial3: true,
@@ -42,5 +42,6 @@ class MyAppTheme {
     bottomSheetTheme: MyBottomSheetTheme.darkBottomSheetTheme,
     inputDecorationTheme: MyTextFieldTheme.darkInputDecorationTheme,
     elevatedButtonTheme: MyElevationButtonTheme.darkElevatedButtonTheme,
+    filledButtonTheme: MyFilledButtonTheme.darkFilledButtonTheme,
   );
 }

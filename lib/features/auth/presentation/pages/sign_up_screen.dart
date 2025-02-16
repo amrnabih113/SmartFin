@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:smartFin/common/sepetarors/item_seperator.dart';
 import 'package:smartFin/common/sepetarors/section_seperator.dart';
+import 'package:smartFin/common/styles/gradiant_elevation_butoon.dart';
+import 'package:smartFin/common/styles/gradiant_text.dart';
 import 'package:smartFin/common/widgets/my_app_bar.dart';
 import 'package:smartFin/core/constants/sizes.dart';
 import 'package:smartFin/core/utils/device/device_utility.dart';
@@ -34,8 +36,8 @@ class SignUpScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                AppLocalizations.current.signupTitle,
+              GradientText(
+                text: AppLocalizations.current.signupTitle,
                 style: Theme.of(context).textTheme.headlineLarge,
               ),
               ItemSperator.halfVertical(),
@@ -49,7 +51,7 @@ class SignUpScreen extends StatelessWidget {
               ItemSperator.vertical(),
               SizedBox(
                 width: double.infinity,
-                child: ElevatedButton(
+                child: GradientElevatedButton(
                     onPressed: () async => await signupController.signup(),
                     child: Text(AppLocalizations.current.signUP)),
               ),

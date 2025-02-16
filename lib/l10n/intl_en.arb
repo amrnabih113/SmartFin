@@ -57,5 +57,15 @@
   "confirmEmail": "Confirm Email",
   "confirmEmailSubtitle": "Please check you email to vreify it so you can enjoy controlling your budgets",
   "yourAccountCreatedTitle": "Your account successfully created!",
-  "yourAccountCreatedSubTitle": "Welcome to Your Ultimate Shopping Destination: Your Account is Created, Unleash the Joy of Seamless Online Shopping!"
+  "yourAccountCreatedSubTitle": "Welcome to Your Ultimate Shopping Destination: Your Account is Created, Unleash the Joy of Seamless Online Shopping!",
+  "viewMore": "View more",
+  "overView": "Overview:",
+  "analysis": "Analysis",
+  "transcations": "Transactions",
+  "expenses": "Expenses",
+  "inviteAMember": "Invite a Member",
+  "analytics": "Analytics",
+  "spentThisMonth": "Spent this month",
+  "categories": "Categories",
+  "recentTransactions": "Recent Transactions"
 }

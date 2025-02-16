@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:smartFin/common/sepetarors/item_seperator.dart';
 import 'package:smartFin/common/sepetarors/section_seperator.dart';
+import 'package:smartFin/common/styles/gradiant_elevation_butoon.dart';
+import 'package:smartFin/common/styles/gradiant_outlined_button.dart';
+import 'package:smartFin/common/styles/gradiant_text.dart';
 import 'package:smartFin/core/constants/images.dart';
 import 'package:smartFin/core/constants/sizes.dart';
 import 'package:smartFin/core/utils/device/device_utility.dart';
@@ -41,8 +44,8 @@ class SignInScreen extends StatelessWidget {
             children: [
               Image.asset(
                   isDark ? MyImages.appLogoDark : MyImages.appLogoLight),
-              Text(
-                AppLocalizations.current.signInTitle,
+              GradientText(
+                text: AppLocalizations.current.signInTitle,
                 style: Theme.of(context).textTheme.headlineLarge,
               ),
               ItemSperator.halfVertical(),
@@ -56,7 +59,7 @@ class SignInScreen extends StatelessWidget {
               ItemSperator.vertical(),
               SizedBox(
                 width: double.infinity,
-                child: ElevatedButton(
+                child: GradientElevatedButton(
                     onPressed: () =>
                         signInController.signinWithEmailAndPassword(),
                     child: Text(AppLocalizations.current.signIn)),
@@ -64,7 +67,7 @@ class SignInScreen extends StatelessWidget {
               ItemSperator.vertical(),
               SizedBox(
                 width: double.infinity,
-                child: OutlinedButton(
+                child: GradientOutlinedButton(
                     onPressed: () => Get.to(() => const SignUpScreen()),
                     child: Text(AppLocalizations.current.signUP)),
               ),

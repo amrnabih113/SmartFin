@@ -27,7 +27,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Forgot Password?"),
         "agreeTerms": MessageLookupByLibrary.simpleMessage(
             "You must agree to our Terms of Use and Privacy Policy."),
+        "analysis": MessageLookupByLibrary.simpleMessage("Analysis"),
+        "analytics": MessageLookupByLibrary.simpleMessage("Analytics"),
         "and": MessageLookupByLibrary.simpleMessage("and"),
+        "categories": MessageLookupByLibrary.simpleMessage("Categories"),
         "changeYourPasswordSubTitle": MessageLookupByLibrary.simpleMessage(
             "Your Account Security is Our Priority! We\'ve Sent You a Secure Link to Safely Change Your Password and Keep Your Account Protected."),
         "changeYourPasswordTitle":
@@ -41,6 +44,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Email already exists. Please use a different email."),
         "emailSentTitle":
             MessageLookupByLibrary.simpleMessage("Email sent successfully."),
+        "expenses": MessageLookupByLibrary.simpleMessage("Expenses"),
         "firstName": MessageLookupByLibrary.simpleMessage("First Name"),
         "forgetPasswordDescription": MessageLookupByLibrary.simpleMessage(
             "Enter your email address to receive instructions for resetting your password."),
@@ -53,6 +57,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "iAgreeTo": MessageLookupByLibrary.simpleMessage("I agree to"),
         "internetConnectionError": MessageLookupByLibrary.simpleMessage(
             "Please check your internet connection."),
+        "inviteAMember":
+            MessageLookupByLibrary.simpleMessage("Invite a Member"),
         "logInFailedTryAgain": MessageLookupByLibrary.simpleMessage(
             "Login failed. Please check your credentials."),
         "loggingIn": MessageLookupByLibrary.simpleMessage("Logging in..."),
@@ -73,10 +79,13 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Your Money, Your Rules"),
         "orSignInWith": MessageLookupByLibrary.simpleMessage("Or Sign In With"),
         "orSignupWith": MessageLookupByLibrary.simpleMessage("Or Sign Up With"),
+        "overView": MessageLookupByLibrary.simpleMessage("Overview:"),
         "password": MessageLookupByLibrary.simpleMessage("Password"),
         "privacyPolicy": MessageLookupByLibrary.simpleMessage("Privacy Policy"),
         "processingYourRequest":
             MessageLookupByLibrary.simpleMessage("Processing your request..."),
+        "recentTransactions":
+            MessageLookupByLibrary.simpleMessage("Recent Transactions"),
         "rememberMe": MessageLookupByLibrary.simpleMessage("Remember me"),
         "resendEmail": MessageLookupByLibrary.simpleMessage("Resend Email"),
         "resetPassword":
@@ -105,12 +114,16 @@ class MessageLookup extends MessageLookupByLibrary {
         "skip": MessageLookupByLibrary.simpleMessage("Skip"),
         "somethingWentWrong": MessageLookupByLibrary.simpleMessage(
             "Something went wrong. Please try again later."),
+        "spentThisMonth":
+            MessageLookupByLibrary.simpleMessage("Spent this month"),
         "submit": MessageLookupByLibrary.simpleMessage("Submit"),
         "termsOfUse": MessageLookupByLibrary.simpleMessage("Terms of Use"),
+        "transcations": MessageLookupByLibrary.simpleMessage("Transactions"),
         "userCancelledSignIn":
             MessageLookupByLibrary.simpleMessage("User cancelled sign-in."),
         "userisNull": MessageLookupByLibrary.simpleMessage("User is Null"),
         "username": MessageLookupByLibrary.simpleMessage("Username"),
+        "viewMore": MessageLookupByLibrary.simpleMessage("View more"),
         "yourAccountCreatedSubTitle": MessageLookupByLibrary.simpleMessage(
             "Welcome to Your Ultimate Shopping Destination: Your Account is Created, Unleash the Joy of Seamless Online Shopping!"),
         "yourAccountCreatedTitle": MessageLookupByLibrary.simpleMessage(

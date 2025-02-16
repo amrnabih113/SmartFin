@@ -17,6 +17,10 @@ class MyDateFormatter {
     return DateFormat('d MMM,y').format(dateTime!);
   }
 
+  static String dateStringMonth(DateTime? dateTime) {
+    return DateFormat('d MMM').format(dateTime!);
+  }
+
   static DateTime isoStringToLocalDate(String dateTime) {
     return DateFormat('yyyy-MM-ddTHH:mm:ss.SSS')
         .parse(dateTime, true)

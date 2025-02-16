@@ -639,6 +639,106 @@ class AppLocalizations {
       args: [],
     );
   }
+
+  /// `View more`
+  String get viewMore {
+    return Intl.message(
+      'View more',
+      name: 'viewMore',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Overview:`
+  String get overView {
+    return Intl.message(
+      'Overview:',
+      name: 'overView',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Analysis`
+  String get analysis {
+    return Intl.message(
+      'Analysis',
+      name: 'analysis',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Transactions`
+  String get transcations {
+    return Intl.message(
+      'Transactions',
+      name: 'transcations',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Expenses`
+  String get expenses {
+    return Intl.message(
+      'Expenses',
+      name: 'expenses',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Invite a Member`
+  String get inviteAMember {
+    return Intl.message(
+      'Invite a Member',
+      name: 'inviteAMember',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Analytics`
+  String get analytics {
+    return Intl.message(
+      'Analytics',
+      name: 'analytics',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Spent this month`
+  String get spentThisMonth {
+    return Intl.message(
+      'Spent this month',
+      name: 'spentThisMonth',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Categories`
+  String get categories {
+    return Intl.message(
+      'Categories',
+      name: 'categories',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Recent Transactions`
+  String get recentTransactions {
+    return Intl.message(
+      'Recent Transactions',
+      name: 'recentTransactions',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<AppLocalizations> {

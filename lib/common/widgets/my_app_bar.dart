@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
@@ -12,6 +11,8 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   final List<Widget>? actions;
   final VoidCallback? leadingOnPressed;
   final double padding;
+  final bool isCenter;
+  final Widget? leadingWidget;
 
   const MyAppBar(
       {super.key,
@@ -19,8 +20,10 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
       this.showBackButton = false,
       this.leadingIcon,
       this.actions,
+      this.leadingWidget,
       this.leadingOnPressed,
-      this.padding = MySizes.md});
+      this.padding = MySizes.md,
+      this.isCenter = true});
   @override
   Widget build(BuildContext context) {
     //final settingsController = SettingsController.instance;
@@ -28,27 +31,30 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
       padding: EdgeInsets.symmetric(horizontal: padding),
       child: AppBar(
         automaticallyImplyLeading: false,
-        leading: showBackButton
-            ? IconButton(
-                onPressed: () => Get.back(),
-                icon: Icon(
-                  // settingsController.language.value == 'ar'
-                  //     ? Iconsax.arrow_right_3
-                  //     : 
-                  Iconsax.arrow_left_2,
-                  size: MySizes.iconLg,
-                  color: Theme.of(context).iconTheme.color,
-                ))
-            : leadingIcon == null
-                ? null
-                : IconButton(
-                    onPressed: leadingOnPressed,
+        leading: leadingWidget ??
+            (showBackButton
+                ? IconButton(
+                    onPressed: () => Get.back(),
                     icon: Icon(
-                      leadingIcon,
+                      // settingsController.language.value == 'ar'
+                      //     ? Iconsax.arrow_right_3
+                      //     :
+                      Iconsax.arrow_left_2,
+                      size: MySizes.iconLg,
                       color: Theme.of(context).iconTheme.color,
-                    )),
+                    ))
+                : leadingIcon == null
+                    ? null
+                    : IconButton(
+                        onPressed: leadingOnPressed,
+                        icon: Icon(
+                          leadingIcon,
+                          color: Theme.of(context).iconTheme.color,
+                          size: MySizes.iconMd,
+                        ))),
         title: title,
         actions: actions,
+        centerTitle: isCenter,
       ),
     );
   }

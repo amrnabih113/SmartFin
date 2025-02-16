@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:fpdart/fpdart.dart';
 import 'package:smartFin/core/error/failures.dart';
 import 'package:smartFin/features/auth/data/repository/auth_repository.dart';
-import 'package:smartFin/features/auth/data/service/supabase_auth.dart';
+import 'package:smartFin/features/auth/data/service/remote/supabase_auth.dart';
 import 'package:smartFin/generated/l10n.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 

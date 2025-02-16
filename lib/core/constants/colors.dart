@@ -7,11 +7,16 @@ class MyColors {
   static const Color primaryColor = Color(0xFFFF796A);
   static const Color secondaryColor = Color(0xFFF4C98A);
   static const Color accent = Color(0xFFB0C7FF);
+  static const Color darker = Color(0xFF0A0F15);
+  static const Color buttonDark = Color.fromARGB(255, 32, 36, 52);
+  static const Color buttonLight = Color(0xffE6E6E6);
+  static const Color selectedButton = Color(0xFF262C3A);
 
   //Gradient Colors
   static const Gradient primaryGradient = LinearGradient(
     begin: Alignment.centerLeft,
     end: Alignment.centerRight,
+    stops: [0.2, .8],
     colors: [
       primaryColor,
       secondaryColor,
@@ -21,25 +26,51 @@ class MyColors {
   static const Gradient secondaryGradient = LinearGradient(
     begin: Alignment.bottomLeft,
     end: Alignment.topRight,
-    stops: [0.0, 1.0],
+    stops: [0.5, 1.0],
     colors: [
       primaryColor,
       white,
     ],
   );
 
-  static customgradient(Color color) {
+  static LinearGradient customGradient(MaterialColor color) {
     return LinearGradient(
-      begin: Alignment.centerLeft,
-      end: Alignment.centerRight,
-      stops: const [0.0, 1.0],
+      begin: Alignment.topRight,
+      end: Alignment.bottomLeft,
+      stops: const [0.0, 0.5, 0.8],
       colors: [
-        color,
-        white,
+        color.shade800,
+        color.shade500,
+        color.shade300,
       ],
     );
-    
   }
+
+  static LinearGradient customGradient2(Color color) {
+    return LinearGradient(
+      begin: Alignment.topLeft,
+      end: Alignment.bottomRight,
+      stops: const [0.5, 0.9],
+      colors: [color, white],
+    );
+  }
+
+  static SweepGradient customSweepGradient(MaterialColor color) {
+    return SweepGradient(
+      startAngle: 0.0,
+      endAngle: 3.14 * 2, // Full circle
+      tileMode: TileMode.clamp,
+      colors: [
+        color.shade900,
+        color.shade700,
+        color.shade500,
+        color.shade300,
+        color.shade100, // Fades out smoothly
+      ],
+      stops: const [0.2, 0.5, 0.7, 0.9, 1.0], // Controls smoothness
+    );
+  }
+
   // Text Colors
   static const Color textPrimary = Color(0xFF3E3E40);
   static const Color textSecondary = Color(0xFF6c757d);
@@ -61,6 +92,8 @@ class MyColors {
 
   //border Colors
   static const Color primaryBorder = Color(0xFFD9D9D9);
+  static const Color primaryBorderDark = Color(0xFF272E3E);
+
   static const Color secondaryBorder = Color(0xFFE6E6E6);
 
   //Error Colors

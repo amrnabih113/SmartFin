@@ -1,6 +1,6 @@
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:smartFin/features/auth/data/models/user_model.dart';
-import 'package:smartFin/features/auth/data/service/supabase_auth.dart';
+import 'package:smartFin/features/auth/data/service/remote/supabase_auth.dart';
 import 'package:smartFin/generated/l10n.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 

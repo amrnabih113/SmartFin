@@ -16,10 +16,10 @@ class MyElevationButtonTheme {
     textStyle: const TextStyle(
         fontSize: 16,
         fontWeight: FontWeight.w400,
-        color: Colors.white,
+        color: MyColors.dark,
         fontFamily: 'Poppins'),
     shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(12))),
+        borderRadius: BorderRadius.all(Radius.circular(60))),
   ));
 
   static final darkElevatedButtonTheme = ElevatedButtonThemeData(
@@ -34,10 +34,10 @@ class MyElevationButtonTheme {
       textStyle: const TextStyle(
           fontSize: 16,
           fontWeight: FontWeight.w400,
-          color: Colors.white,
+          color: MyColors.dark,
           fontFamily: 'Poppins'),
       shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(12))),
+          borderRadius: BorderRadius.all(Radius.circular(60))),
     ),
   );
 }

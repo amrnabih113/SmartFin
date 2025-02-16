@@ -36,11 +36,7 @@ class ScreenRedirect extends GetxController {
             ));
       }
     } else {
-      print(
-          "=======redirect========${localStorage.read<bool>(MyTexts.isFirstTime)}");
       localStorage.writeIfNull(MyTexts.isFirstTime, true);
-      print(
-          "=======after write if null ========${localStorage.read<bool>(MyTexts.isFirstTime)}");
       localStorage.read(MyTexts.isFirstTime) != true
           ? Get.offAll(() => const SignInScreen())
           : Get.offAll(() => const OnBoardingScreen());

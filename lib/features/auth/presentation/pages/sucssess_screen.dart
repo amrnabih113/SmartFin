@@ -1,12 +1,18 @@
-
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:smartFin/common/styles/gradiant_elevation_butoon.dart';
+import 'package:smartFin/core/constants/colors.dart';
 import 'package:smartFin/core/constants/sizes.dart';
 import 'package:smartFin/core/utils/helpers/helper_functions.dart';
 import 'package:smartFin/generated/l10n.dart';
 
 class SuccessScreen extends StatelessWidget {
-  const SuccessScreen({super.key, required this.image, required this.onPressed, required this.title, required this.subtitle});
+  const SuccessScreen(
+      {super.key,
+      required this.image,
+      required this.onPressed,
+      required this.title,
+      required this.subtitle});
   final String image;
   final VoidCallback onPressed;
   final String title;
@@ -16,10 +22,11 @@ class SuccessScreen extends StatelessWidget {
     return Scaffold(
         body: SingleChildScrollView(
             child: Padding(
-      padding: const EdgeInsets.only(top: MySizes.appBarHeight,
-        left: MySizes.defaultSpacing,
-        right: MySizes.defaultSpacing,
-        bottom: MySizes.defaultSpacing),
+      padding: const EdgeInsets.only(
+          top: MySizes.appBarHeight,
+          left: MySizes.defaultSpacing,
+          right: MySizes.defaultSpacing,
+          bottom: MySizes.defaultSpacing),
       child: Column(
         children: [
           //image
@@ -50,8 +57,11 @@ class SuccessScreen extends StatelessWidget {
           // button
           SizedBox(
             width: double.infinity,
-            child: ElevatedButton(
-                onPressed: onPressed, child:  Text(AppLocalizations.current.Continue)),
+            child: GradientElevatedButton(
+                onPressed: onPressed,
+                child: Text(AppLocalizations.current.Continue,
+                    style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                        fontWeight: FontWeight.bold, color: MyColors.dark))),
           ),
           const SizedBox(
             height: MySizes.spaceBetweenItems,

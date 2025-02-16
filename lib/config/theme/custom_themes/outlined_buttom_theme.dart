@@ -14,7 +14,7 @@ class MyOutlinedButtonTheme {
     textStyle: const TextStyle(
         fontSize: 16.0, fontWeight: FontWeight.w600, color: Colors.white),
     shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(12.0),
+      borderRadius: BorderRadius.circular(60),
     ),
   ));
 
@@ -28,7 +28,7 @@ class MyOutlinedButtonTheme {
     textStyle: const TextStyle(
         fontSize: 16.0, fontWeight: FontWeight.w600, color: Colors.white),
     shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(12.0),
+      borderRadius: BorderRadius.circular(60),
     ),
   ));
 }
