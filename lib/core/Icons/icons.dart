@@ -1,12 +1,133 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hugeicons/hugeicons.dart';
-import 'package:smartFin/features/categories/domain/entities/category_entity.dart';
-import 'package:smartFin/features/categories/domain/entities/category_section_entity.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class CategoryRepository {
-  static final List<CategorySectionEntity> sections = [
-    // ** INCOME CATEGORIES **
+class MyIcons {
+  static IconData getIconData(String iconName) {
+    const Map<String, IconData> iconMapping = {
+      'briefcase': HugeIcons.strokeRoundedBriefcase01,
+      'store': HugeIcons.strokeRoundedStore01,
+      'laptop': HugeIcons.strokeRoundedLaptop,
+      'chart-increase': HugeIcons.strokeRoundedChartIncrease,
+      'house': HugeIcons.strokeRoundedHouse01,
+      'coins': HugeIcons.strokeRoundedCoins01,
+      'gift': HugeIcons.strokeRoundedGift,
+      'bank': HugeIcons.strokeRoundedBank,
+      'home': HugeIcons.strokeRoundedHome01,
+      'electric-plugs': HugeIcons.strokeRoundedElectricPlugs,
+      'droplet': HugeIcons.strokeRoundedDroplet,
+      'globe': HugeIcons.strokeRoundedGlobe,
+      'shield': HugeIcons.strokeRoundedShield01,
+      'tools': HugeIcons.strokeRoundedTools,
+      'car': HugeIcons.strokeRoundedCar01,
+      'fuel': HugeIcons.strokeRoundedFuel01,
+      'bus': HugeIcons.strokeRoundedBus01,
+      'wrench': HugeIcons.strokeRoundedWrench01,
+      'taxi': HugeIcons.strokeRoundedTaxi,
+      'shopping-bag': HugeIcons.strokeRoundedShoppingBag01,
+      'brush': HugeIcons.strokeRoundedBrush,
+      'shopping-basket': HugeIcons.strokeRoundedShoppingBasket01,
+      'cat': FontAwesomeIcons.cat,
+      'stethoscope': HugeIcons.strokeRoundedStethoscope,
+      'pill': HugeIcons.strokeRoundedGivePill,
+      'tooth': HugeIcons.strokeRoundedDentalTooth,
+      'restaurant': HugeIcons.strokeRoundedRestaurant01,
+      'ticket': HugeIcons.strokeRoundedTicket01,
+      'paint-brush': HugeIcons.strokeRoundedIceSkating,
+      'airplane': HugeIcons.strokeRoundedDrink,
+      'credit-card': HugeIcons.strokeRoundedCreditCard,
+      'dumbbell': HugeIcons.strokeRoundedDumbbell01,
+      'piggy-bank': HugeIcons.strokeRoundedPiggyBank,
+      'user-graduate': FontAwesomeIcons.userGraduate,
+      'hands-holding': FontAwesomeIcons.handsHoldingCircle,
+      'heart': HugeIcons.strokeRoundedHeartAdd,
+      'mosque': HugeIcons.strokeRoundedMosque01,
+      'hand-holding-heart': FontAwesomeIcons.handHoldingHeart,
+      'baby': HugeIcons.strokeRoundedBaby01,
+      'parking': HugeIcons.strokeRoundedCarParking01,
+      'baseball': HugeIcons.strokeRoundedBaseball,
+      'recycle': HugeIcons.strokeRoundedRecycle01,
+      'eyeglasses': HugeIcons.strokeRoundedGlasses,
+
+    };
+    return iconMapping[iconName] ?? Icons.help_outline;
+  }
+  /**INSERT INTO categories (name, icon, color, type, transactions_count) VALUES
+    -- Income Categories
+    ('Salary', 'briefcase', '#2196F3', 'income', 0),
+    ('Business Income', 'store', '#4CAF50', 'income', 0),
+    ('Freelancing', 'laptop', '#FF9800', 'income', 0),
+    ('Investment Returns', 'chart-increase', '#9C27B0', 'income', 0),
+    ('Rental Income', 'house', '#795548', 'income', 0),
+    ('Side Hustle', 'coins', '#009688', 'income', 0),
+    ('Gift Money', 'gift', '#F44336', 'income', 0),
+    ('Government Benefits', 'bank', '#9E9E9E', 'income', 0),
+    ('Royalties', 'paint-brush', '#E91E63', 'income', 0),
+    ('Part-time Job', 'briefcase', '#2196F3', 'income', 0),
+
+    -- Expense Categories - Housing & Utilities
+    ('Rent', 'home', '#FF9800', 'expense', 0),
+    ('Mortgage Payment', 'house', '#607D8B', 'expense', 0),
+    ('Electricity Bill', 'electric-plugs', '#FFEB3B', 'expense', 0),
+    ('Water Bill', 'droplet', '#2196F3', 'expense', 0),
+    ('Internet Subscription', 'globe', '#9C27B0', 'expense', 0),
+    ('Home Insurance', 'shield', '#F44336', 'expense', 0),
+    ('Home Repairs & Maintenance', 'tools', '#795548', 'expense', 0),
+    ('Furniture & Appliances', 'bed', '#E91E63', 'expense', 0),
+
+    -- Expense Categories - Transportation
+    ('Car Loan Payment', 'car', '#2196F3', 'expense', 0),
+    ('Fuel & Gas', 'fuel', '#FF9800', 'expense', 0),
+    ('Public Transport', 'bus', '#4CAF50', 'expense', 0),
+    ('Vehicle Maintenance', 'wrench', '#F44336', 'expense', 0),
+    ('Car Insurance', 'shield', '#9C27B0', 'expense', 0),
+    ('Taxi & Ride-Sharing', 'taxi', '#009688', 'expense', 0),
+    ('Parking Fees', 'parking', '#795548', 'expense', 0),
+
+    -- Expense Categories - Essentials
+    ('Groceries & Food', 'shopping-bag', '#4CAF50', 'expense', 0),
+    ('Personal Care & Hygiene', 'brush', '#E91E63', 'expense', 0),
+    ('Household Supplies', 'shopping-basket', '#2196F3', 'expense', 0),
+    ('Pet Expenses', 'cat', '#795548', 'expense', 0),
+    ('Baby & Childcare', 'baby', '#9E9E9E', 'expense', 0),
+
+    -- Expense Categories - Healthcare
+    ('Doctor Visits', 'stethoscope', '#2196F3', 'expense', 0),
+    ('Medications', 'pill', '#F44336', 'expense', 0),
+    ('Health Insurance', 'shield', '#4CAF50', 'expense', 0),
+    ('Dental Care', 'tooth', '#9C27B0', 'expense', 0),
+    ('Vision Care', 'eyeglasses', '#FF9800', 'expense', 0),
+
+    -- Expense Categories - Entertainment & Leisure
+    ('Dining Out', 'restaurant', '#E91E63', 'expense', 0),
+    ('Movies & Theatre', 'ticket', '#F44336', 'expense', 0),
+    ('Hobbies & Crafts', 'paint-brush', '#009688', 'expense', 0),
+    ('Vacation & Travel', 'airplane', '#FF9800', 'expense', 0),
+    ('Subscriptions (Netflix, Spotify, etc.)', 'credit-card', '#9C27B0', 'expense', 0),
+    ('Gym Membership', 'dumbbell', '#9E9E9E', 'expense', 0),
+    ('Sports & Fitness', 'baseball', '#795548', 'expense', 0),
+
+    -- Expense Categories - Savings & Investments
+    ('Savings Account', 'piggy-bank', '#4CAF50', 'expense', 0),
+    ('Stock Market Investments', 'chart-increase', '#2196F3', 'expense', 0),
+    ('Retirement Fund', 'bank', '#795548', 'expense', 0),
+    ('Emergency Fund', 'shield', '#F44336', 'expense', 0),
+    ('Education Savings', 'user-graduate', '#009688', 'expense', 0),
+
+    -- Expense Categories - Debt & Loans
+    ('Credit Card Payments', 'credit-card', '#9C27B0', 'expense', 0),
+    ('Student Loans', 'user-graduate', '#FF9800', 'expense', 0),
+    ('Car Loan', 'car', '#2196F3', 'expense', 0),
+    ('Personal Loan', 'hands-holding', '#9E9E9E', 'expense', 0),
+    ('Mortgage', 'house', '#607D8B', 'expense', 0),
+
+    -- Expense Categories - Charity & Giving
+    ('Charitable Donations', 'heart', '#F44336', 'expense', 0),
+    ('Religious Donations (Zakat, Tithing, etc.)', 'mosque', '#2196F3', 'expense', 0),
+    ('Fundraising Contributions', 'hand-holding-heart', '#9C27B0', 'expense', 0),
+    ('Animal Welfare', 'cat', '#795548', 'expense', 0),
+    ('Environmental Organizations', 'recycle', '#009688', 'expense', 0);
+
     CategorySectionEntity(
       title: "Income",
       categories: [
@@ -248,4 +369,6 @@ class CategoryRepository {
       ],
     ),
   ];
+}
+ */
 }

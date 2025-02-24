@@ -1,4 +1,7 @@
-abstract class SqliteService<T> {
+import 'package:sqflite/sqflite.dart';
+
+abstract class SqliteService {
+ Future<Database> get database;
   Future<int> insert(String table, Map<String, dynamic> data);
   Future<int> update(String table, Map<String, dynamic> data, String whereClause, List<dynamic> whereArgs);
   Future<int> delete(String table, String whereClause, List<dynamic> whereArgs);

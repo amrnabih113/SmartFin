@@ -1,6 +1,5 @@
-import 'package:fpdart/fpdart.dart';
-import 'package:smartFin/core/error/failures.dart';
-import 'package:smartFin/features/auth/data/repository/auth_repository.dart';
+
+import 'package:smartFin/features/auth/domain/repository/auth_repository.dart';
 import 'package:smartFin/features/auth/domain/usecases/usecase.dart';
 
 class UserResetPassword implements UseCase<void, String> {
@@ -9,7 +8,7 @@ class UserResetPassword implements UseCase<void, String> {
   UserResetPassword(this.authRepository);
 
   @override
-  Future<Either<Failure, void>> call(String params) async {
+  Future<void> call(String params) async {
     final result = await authRepository.resetPassword(params);
     return result;
   }

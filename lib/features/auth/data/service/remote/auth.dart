@@ -1,6 +1,6 @@
 import 'package:smartFin/features/auth/data/models/user_model.dart';
 
-abstract class SupabaseAuth {
+abstract class Auth {
 
   Future<UserModel> signupWithEmailAndPassword(String fName, String lName,
       String userName, String email, String password);

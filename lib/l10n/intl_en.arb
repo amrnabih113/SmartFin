@@ -67,5 +67,20 @@
   "analytics": "Analytics",
   "spentThisMonth": "Spent this month",
   "categories": "Categories",
-  "recentTransactions": "Recent Transactions"
+  "recentTransactions": "Recent Transactions",
+  "loggingOut": "Logging out...",
+  "logOut": "Log Out",
+  "cancel": "Cancel",
+  "logOutMessage": "Are you sure you want to log out?",
+  "yes": "Yes",
+  "no": "No",
+  "delete": "Delete",
+  "deleteAccount": "Delete Account",
+  "deleteAccountMessage": "Are you sure you want to delete your account?",
+  "deleteAccountDescription": "This action cannot be undone. All your data will be lost.",
+  "deleteAccountSuccess": "Account deleted successfully.",
+  "deleteAccountFailed": "Account deletion failed. Please try again later.",
+  "deleteAccountInProgress": "Deleting your account...",
+  "error": "Error",
+  "errorMessage": "An error occurred. Please try again later."
 }

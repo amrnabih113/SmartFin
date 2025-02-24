@@ -10,7 +10,7 @@ class SignupTermsCheckbox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final signUpController = SignUpcontroller.instance;
+    final signUpController = SignUpController.instance;
     return Row(children: [
       Obx(() {
         final isChecked = signUpController.agreeTerms.value;

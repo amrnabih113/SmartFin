@@ -1,9 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:smartFin/features/auth/presentation/pages/verify_email_screen.dart';
 import 'package:smartFin/navigation_menu.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:smartFin/core/constants/texts.dart';
 import 'package:smartFin/core/local_storage/my_local_storage.dart';
 import 'package:smartFin/features/auth/presentation/pages/sign_in_screen.dart';
@@ -12,12 +12,11 @@ import 'package:smartFin/features/onboarding/presentation/pages/onboarding_scree
 class ScreenRedirect extends GetxController {
   static ScreenRedirect get instance => Get.find();
   final GetStorage localStorage;
-  final SupabaseClient supabase;
+
   ScreenRedirect(
     this.localStorage,
-    this.supabase,
   );
-
+  final firebase = FirebaseAuth.instance;
   @override
   void onReady() {
     FlutterNativeSplash.remove();
@@ -25,10 +24,10 @@ class ScreenRedirect extends GetxController {
   }
 
   screenRedirect() async {
-    final user = supabase.auth.currentUser;
+    User? user = firebase.currentUser;
     if (user != null) {
-      if (user.emailConfirmedAt != null) {
-        await MyLocalStorage.init(user.id);
+      if (user.emailVerified) {
+        await MyLocalStorage.init(user.uid);
         Get.offAll(() => const NavigationMenu());
       } else {
         Get.offAll(() => VerifyEmailSCreen(

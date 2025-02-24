@@ -71,6 +71,77 @@ class MyColors {
     );
   }
 
+
+static MaterialColor getMaterialColor(String colorHex) {
+  // Map common hex colors to predefined MaterialColors
+  final Map<String, MaterialColor> predefinedColors = {
+    '#F44336': Colors.red,
+    '#E91E63': Colors.pink,
+    '#9C27B0': Colors.purple,
+    '#673AB7': Colors.deepPurple,
+    '#3F51B5': Colors.indigo,
+    '#2196F3': Colors.blue,
+    '#03A9F4': Colors.lightBlue,
+    '#00BCD4': Colors.cyan,
+    '#009688': Colors.teal,
+    '#4CAF50': Colors.green,
+    '#8BC34A': Colors.lightGreen,
+    '#CDDC39': Colors.lime,
+    '#FFEB3B': Colors.yellow,
+    '#FFC107': Colors.amber,
+    '#FF9800': Colors.orange,
+    '#FF5722': Colors.deepOrange,
+    '#795548': Colors.brown,
+    '#9E9E9E': Colors.grey,
+    '#607D8B': Colors.blueGrey,
+  };
+
+  // Check if the provided color exists in the predefined map
+  if (predefinedColors.containsKey(colorHex.toUpperCase())) {
+    return predefinedColors[colorHex.toUpperCase()]!;
+  }
+
+  try {
+    // Validate the hex string format and remove the "#"
+    if (!colorHex.startsWith('#') || (colorHex.length != 7 && colorHex.length != 9)) {
+      throw const FormatException('Invalid color format');
+    }
+    
+    // Convert hex to an int value
+    int colorInt = int.parse(colorHex.substring(1), radix: 16);
+    
+    // Extract RGB components (ignore alpha)
+    int red = (colorInt >> 16) & 0xFF;
+    int green = (colorInt >> 8) & 0xFF;
+    int blue = colorInt & 0xFF;
+
+    // Generate a swatch for MaterialColor
+    return _createMaterialColor(Color.fromRGBO(red, green, blue, 1));
+  } catch (e) {
+    // Return a default color if invalid
+    return Colors.grey;
+  }
+}
+
+// Helper function to generate a MaterialColor from a single Color
+static MaterialColor _createMaterialColor(Color color) {
+  return MaterialColor(
+    color.value,
+    <int, Color>{
+      50: color.withAlpha(25),
+      100: color.withAlpha(50),
+      200: color.withAlpha(75),
+      300: color.withAlpha(100),
+      400: color.withAlpha(125),
+      500: color.withAlpha(150),
+      600: color.withAlpha(175),
+      700: color.withAlpha(200),
+      800: color.withAlpha(225),
+      900: color.withAlpha(255),
+    },
+  );
+}
+
   // Text Colors
   static const Color textPrimary = Color(0xFF3E3E40);
   static const Color textSecondary = Color(0xFF6c757d);

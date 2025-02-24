@@ -6,6 +6,7 @@ import 'package:smartFin/common/styles/gradiant_elevation_butoon.dart';
 import 'package:smartFin/common/widgets/my_app_bar.dart';
 import 'package:smartFin/core/constants/colors.dart';
 import 'package:smartFin/core/constants/sizes.dart';
+import 'package:smartFin/core/utils/popups/loaders.dart';
 import 'package:smartFin/features/transactions/presentation/controllers/calculator_conreoller.dart';
 import 'package:smartFin/features/transactions/presentation/pages/transaction_info_screen.dart';
 
@@ -46,11 +47,19 @@ class CalculatorScreen extends StatelessWidget {
                       selectedColor: Colors.white,
                       color: Colors.grey,
                       isSelected: [
-                        controller.selectedCategory.value == 0,
-                        controller.selectedCategory.value == 1,
-                        controller.selectedCategory.value == 2
+                        controller.selectedCategory.value == "expense",
+                        controller.selectedCategory.value == "income",
+                        controller.selectedCategory.value == "transfer",
                       ],
-                      onPressed: controller.changeCategory,
+                      onPressed: (index) {
+                        if (index == 0) {
+                          controller.selectedCategory.value = "expense";
+                        } else if (index == 1) {
+                          controller.selectedCategory.value = "income";
+                        } else if (index == 2) {
+                          controller.selectedCategory.value = "transfer";
+                        }
+                      },
                       children: const [
                         Padding(
                             padding: EdgeInsets.symmetric(horizontal: 20),
@@ -154,7 +163,15 @@ class CalculatorScreen extends StatelessWidget {
                 SizedBox(
                   width: double.infinity,
                   child: GradientElevatedButton(
-                    onPressed: () => Get.to(() => const TransactionInfo()),
+                    onPressed: () => {
+                      if (controller.amount.value != '0')
+                        {Get.to(() => const TransactionInfo())}
+                      else
+                        MyLoaders.warningSnackBar(
+                            title: "Warning",
+                            message:
+                                "The Transaction amount is zero, Please enter an amount."),
+                    },
                     child: Text(
                       "Next",
                       style: Theme.of(context)

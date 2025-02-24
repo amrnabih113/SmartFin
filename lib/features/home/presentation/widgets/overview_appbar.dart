@@ -12,6 +12,7 @@ import 'package:smartFin/core/constants/sizes.dart';
 import 'package:smartFin/core/utils/device/device_utility.dart';
 import 'package:smartFin/core/utils/helpers/helper_functions.dart';
 import 'package:smartFin/features/home/presentation/controllers/overview_controller.dart';
+import 'package:smartFin/features/settings/presentation/pages/setting_screen.dart';
 import 'package:smartFin/generated/l10n.dart';
 
 class OverviewAppbar extends StatelessWidget implements PreferredSizeWidget {
@@ -100,7 +101,7 @@ class OverviewAppbar extends StatelessWidget implements PreferredSizeWidget {
       ),
       actions: [
         IconButton(
-            onPressed: () {},
+            onPressed: () => Get.to(() => const SettingScreen()),
             icon: const Icon(HugeIcons.strokeRoundedSettings01))
       ],
     );

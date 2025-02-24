@@ -65,13 +65,6 @@ class NavigationMenu extends StatelessWidget {
                             : Colors.grey),
                     onPressed: () => controller.selectedIndex.value = 3,
                   ),
-                  // IconButton(
-                  //   icon: Icon(Iconsax.category,
-                  //       color: controller.selectedIndex.value == 4
-                  //           ? MyColors.primaryColor
-                  //           : Colors.grey),
-                  //   onPressed: () => controller.selectedIndex.value = 4,
-                  // ),
                 ],
               ),
             ),
@@ -98,6 +91,5 @@ class NavigationController extends GetxController {
     const BudgetsScreen(),
     const AnalyticsScreen(),
     const ExpencesScreen(),
-    // const CategoriesScreen()
   ];
 }

@@ -1,8 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hugeicons/hugeicons.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:intl/intl.dart';
 
 import 'package:smartFin/common/sepetarors/item_seperator.dart';
 import 'package:smartFin/common/sepetarors/section_seperator.dart';
@@ -12,11 +12,10 @@ import 'package:smartFin/common/widgets/category_icon_container.dart';
 import 'package:smartFin/common/widgets/my_app_bar.dart';
 import 'package:smartFin/common/widgets/mysection_heading.dart';
 import 'package:smartFin/core/constants/colors.dart';
-import 'package:smartFin/core/constants/images.dart';
 import 'package:smartFin/core/constants/sizes.dart';
 import 'package:smartFin/core/utils/helpers/helper_functions.dart';
-import 'package:smartFin/features/auth/presentation/pages/sucssess_screen.dart';
-import 'package:smartFin/features/transactions/presentation/pages/calculator_screen.dart';
+import 'package:smartFin/di.dart';
+import 'package:smartFin/features/transactions/presentation/controllers/transactions_controller.dart';
 
 class TransactionInfo extends StatelessWidget {
   const TransactionInfo({super.key});
@@ -25,6 +24,7 @@ class TransactionInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final transactionController = Get.put(TransactionsController(sl(), sl()));
     final isDark = MyHelperFunctions.isDarkMode(context);
     return Scaffold(
       appBar: const MyAppBar(
@@ -41,28 +41,33 @@ class TransactionInfo extends StatelessWidget {
               Column(
                 children: [
                   Text(
-                    "- \$300",
+                    "${transactionController.transactionType == "expense" ? "-" : "+"}${transactionController.amount}",
                     style: Theme.of(context).textTheme.headlineLarge,
                   ),
                   Text(
-                    "Expense",
+                    transactionController.transactionType == "expense"
+                        ? "Expense"
+                        : "Income",
                     style: Theme.of(context).textTheme.labelLarge,
                   ),
                 ],
               ),
               SectionSeperator.doubleVertical(),
-              Row(children: [
-                Text(
-                  "Category: ",
-                  style: Theme.of(context).textTheme.headlineSmall,
-                ),
-                ItemSperator.halfHorizontal(),
-                GradientText(
-                  text: "Restaurants",
-                  style: Theme.of(context).textTheme.titleSmall,
-                  gradient: MyColors.customGradient(Colors.pink),
-                ),
-              ]),
+              Obx(
+                () => Row(children: [
+                  Text(
+                    "Category: ",
+                    style: Theme.of(context).textTheme.headlineSmall,
+                  ),
+                  ItemSperator.halfHorizontal(),
+                  GradientText(
+                    text: transactionController.selectedCategory.value.name,
+                    style: Theme.of(context).textTheme.titleSmall,
+                    gradient: MyColors.customGradient(transactionController
+                        .selectedCategory.value.materialColor),
+                  ),
+                ]),
+              ),
               ItemSperator.vertical(),
               MySectionHeading(
                 title: "Saved Categories",
@@ -70,64 +75,33 @@ class TransactionInfo extends StatelessWidget {
                 showActionButton: true,
                 isText: true,
               ),
-              const Column(
-                children: [
-                  Row(
-                    children: [
-                      Expanded(
-                        child: CategoryTile(
-                          icon: HugeIcons.strokeRoundedRestaurant01,
-                          color: Colors.pink,
-                          label: "Restaurants",
-                          isSelected: true,
-                        ),
-                      ),
-                      Expanded(
-                        child: CategoryTile(
-                          icon: Iconsax.health,
-                          color: Colors.green,
-                          label: "HealthCare",
-                          isSelected: false,
-                        ),
-                      ),
-                    ],
+              Obx(
+                () => GridView.builder(
+                  itemCount: transactionController.topFivecategories.length,
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: MySizes.md,
+                    mainAxisSpacing: MySizes.md,
+                    mainAxisExtent: 60,
                   ),
-                  SizedBox(height: MySizes.md),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: CategoryTile(
-                          icon: HugeIcons.strokeRoundedWorkoutGymnastics,
-                          color: Colors.blue,
-                          label: "Fitness",
-                          isSelected: false,
-                        ),
+                  itemBuilder: (_, index) {
+                    final category =
+                        transactionController.topFivecategories[index];
+                    return Obx(
+                      () => CategoryTile(
+                        icon: category.iconData,
+                        color: category.materialColor,
+                        label: category.name,
+                        isSelected: category ==
+                            transactionController.selectedCategory.value,
+                        onTap: () =>
+                            transactionController.selectCategory(category),
                       ),
-                      Expanded(
-                        child: CategoryTile(
-                          icon: HugeIcons.strokeRoundedMusicNote01,
-                          color: Colors.orange,
-                          label: "Entertainment",
-                          isSelected: false,
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: MySizes.md),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: CategoryTile(
-                          icon: HugeIcons.strokeRoundedShoppingBag01,
-                          color: Colors.cyan,
-                          label: "Groceries",
-                          isSelected: false,
-                        ),
-                      ),
-                      Spacer(), // To balance the last row if only one item
-                    ],
-                  ),
-                ],
+                    );
+                  },
+                ),
               ),
               ItemSperator.vertical(),
               ListTile(
@@ -138,7 +112,7 @@ class TransactionInfo extends StatelessWidget {
                 leading: Icon(Iconsax.wallet,
                     color: isDark ? MyColors.white : MyColors.dark),
                 title: Text(
-                  "Payment Method",
+                  "Account",
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
                 trailing: const Icon(Iconsax.arrow_right_3),
@@ -147,48 +121,58 @@ class TransactionInfo extends StatelessWidget {
                 onTap: () {},
               ),
               ItemSperator.vertical(),
-              ListTile(
-                shape: ContinuousRectangleBorder(
-                  borderRadius: BorderRadius.circular(MySizes.lg),
-                ),
-                tileColor: isDark ? MyColors.darkContainer : MyColors.light,
-                leading: const Icon(Iconsax.calendar_2),
-                title: Text("Today",
-                    style: Theme.of(context).textTheme.titleLarge),
-                trailing: const Icon(Iconsax.arrow_right_3),
-                subtitle: Text("12:00 PM",
-                    style: Theme.of(context).textTheme.labelMedium),
-                onTap: () async {
-                  DateTime? pickedDate = await showDatePicker(
-                    context: context,
-                    initialDate: DateTime.now(),
-                    firstDate: DateTime(2000),
-                    lastDate: DateTime(2100),
-                    builder: (context, child) {
-                      return Theme(
-                        data: Theme.of(context).copyWith(
-                          colorScheme: ColorScheme.dark(
-                            surface: MyColors.darkContainer,
-                            primary: MyColors.primaryColor,
-                            onPrimary: MyColors.dark,
-                            onSurface: MyColors.white,
-                          ),
-                          textButtonTheme: TextButtonThemeData(
-                            style: TextButton.styleFrom(
-                              foregroundColor: MyColors.white,
+              Obx(
+                () => ListTile(
+                  shape: ContinuousRectangleBorder(
+                    borderRadius: BorderRadius.circular(MySizes.lg),
+                  ),
+                  tileColor: isDark ? MyColors.darkContainer : MyColors.light,
+                  leading: const Icon(Iconsax.calendar_2),
+                  title: Text(
+                      transactionController.date.value.day == DateTime.now().day
+                          ? "Today"
+                          : DateFormat("EEEE, MMM d")
+                              .format(transactionController.date.value),
+                      style: Theme.of(context).textTheme.titleLarge),
+                  trailing: const Icon(Iconsax.arrow_right_3),
+                  subtitle: Text(
+                      transactionController.date.value.day == DateTime.now().day
+                          ? "Now"
+                          : DateFormat("hh:mm a")
+                              .format(transactionController.date.value),
+                      style: Theme.of(context).textTheme.labelMedium),
+                  onTap: () async {
+                    DateTime? pickedDate = await showDatePicker(
+                      context: context,
+                      initialDate: transactionController.date.value,
+                      firstDate: DateTime(2000),
+                      lastDate: DateTime.now(),
+                      builder: (context, child) {
+                        return Theme(
+                          data: Theme.of(context).copyWith(
+                            colorScheme: ColorScheme.dark(
+                              surface: MyColors.darkContainer,
+                              primary: MyColors.primaryColor,
+                              onPrimary: MyColors.dark,
+                              onSurface: MyColors.white,
                             ),
+                            textButtonTheme: TextButtonThemeData(
+                              style: TextButton.styleFrom(
+                                foregroundColor: MyColors.white,
+                              ),
+                            ),
+                            dialogBackgroundColor: MyColors.dark,
                           ),
-                          dialogBackgroundColor: MyColors.dark,
-                        ),
-                        child: child!,
-                      );
-                    },
-                  );
+                          child: child!,
+                        );
+                      },
+                    );
 
-                  if (pickedDate != null) {
-                    print("Selected Date: ${pickedDate.toLocal()}");
-                  }
-                },
+                    if (pickedDate != null) {
+                      transactionController.date.value = pickedDate;
+                    }
+                  },
+                ),
               ),
               ItemSperator.vertical(),
               const TextField(
@@ -201,15 +185,7 @@ class TransactionInfo extends StatelessWidget {
               SizedBox(
                 width: double.infinity,
                 child: GradientElevatedButton(
-                  onPressed: () => Get.to(SuccessScreen(
-                      image: MyImages.successAnimation,
-                      onPressed: () => Get.offUntil(
-                            GetPageRoute(page: () => const CalculatorScreen()),
-                            (route) => route.isFirst,
-                          ),
-                      title: "Transaction Saved",
-                      subtitle:
-                          "Your transaction has been added successfully")),
+                  onPressed: () => transactionController.saveTransaction(),
                   child: Text(
                     "Save",
                     style: Theme.of(context)
@@ -234,39 +210,46 @@ class CategoryTile extends StatelessWidget {
     required this.color,
     required this.label,
     required this.isSelected,
+    required this.onTap,
   });
 
   final IconData icon;
   final MaterialColor color;
   final String label;
   final bool isSelected;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
     final isDark = MyHelperFunctions.isDarkMode(context);
-    return Container(
-      padding: const EdgeInsets.all(MySizes.sm),
-      decoration: BoxDecoration(
-        color: isSelected
-            ? isDark
-                ? MyColors.selectedButton
-                : MyColors.grey
-            : Colors.transparent,
-        borderRadius: BorderRadius.circular(MySizes.md),
-        border: Border.all(color: MyColors.primaryBorderDark),
-      ),
-      child: Row(
-        children: [
-          CategoryIconContainer(
-            color: color,
-            icon: icon,
-          ),
-          ItemSperator.halfHorizontal(),
-          Text(
-            label,
-            style: Theme.of(context).textTheme.titleSmall,
-          ),
-        ],
+    return InkWell(
+      splashColor: Colors.transparent,
+      highlightColor: Colors.transparent,
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.all(MySizes.sm),
+        decoration: BoxDecoration(
+          color: isSelected
+              ? isDark
+                  ? MyColors.selectedButton
+                  : MyColors.grey
+              : Colors.transparent,
+          borderRadius: BorderRadius.circular(MySizes.md),
+          border: Border.all(color: MyColors.primaryBorderDark),
+        ),
+        child: Row(
+          children: [
+            CategoryIconContainer(
+              color: color,
+              icon: icon,
+            ),
+            ItemSperator.halfHorizontal(),
+            Text(
+              label,
+              style: Theme.of(context).textTheme.titleSmall,
+            ),
+          ],
+        ),
       ),
     );
   }

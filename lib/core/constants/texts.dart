@@ -3,4 +3,6 @@ class MyTexts {
   static const String rememberMeEmail = "rememberMeEmail";
   static const String rememberMePassword = "rememberMePassword";
   static const String isFirstTime = "isFirstTime";
+  static const String userId = "userId";
+  static const String firebaseId = "firebaseId";
 }

@@ -3,8 +3,8 @@ import 'package:math_expressions/math_expressions.dart';
 
 class CalculatorController extends GetxController {
   static CalculatorController get instance => Get.find();
-  var amount = "0".obs;
-  var selectedCategory = 1.obs;
+  RxString amount = "0".obs;
+  RxString selectedCategory = "expense".obs;
 
   void onKeyTap(String value) {
     if (value == "AC") {
@@ -36,7 +36,7 @@ class CalculatorController extends GetxController {
     } catch (e) {}
   }
 
-  void changeCategory(int index) {
-    selectedCategory.value = index;
+  void changeCategory(String value) {
+    selectedCategory.value = value;
   }
 }

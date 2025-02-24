@@ -1,3 +1,4 @@
+import 'package:smartFin/core/utils/formatters/formatters.dart';
 import 'package:smartFin/features/auth/domain/entites/user_entity.dart';
 
 class UserModel extends UserEntity {
@@ -9,7 +10,10 @@ class UserModel extends UserEntity {
     required super.email,
     required super.phoneNumber,
     required super.imageurl,
+    required this.firebaseId,
   });
+
+  final String firebaseId;
 
   /// Convert `UserModel` to `UserEntity`
   UserEntity toEntity() {
@@ -32,7 +36,8 @@ class UserModel extends UserEntity {
         lName: json['l_name'] ?? '',
         userName: json['username'] ?? '',
         phoneNumber: json['phone_number'] ?? '',
-        imageurl: json['imageUrl'] ?? '',
+        imageurl: json['image_url'] ?? '',
+        firebaseId: json['firebase_id'] ?? '',
       );
 
   /// Convert `UserModel` to JSON
@@ -43,7 +48,8 @@ class UserModel extends UserEntity {
         'l_name': lName,
         'username': userName,
         'phone_number': phoneNumber,
-        'imageUrl': imageurl,
+        'image_url': imageurl,
+        'firebase_id': firebaseId,
       };
 
   /// Empty instance for default values
@@ -55,5 +61,22 @@ class UserModel extends UserEntity {
         userName: '',
         phoneNumber: '',
         imageurl: '',
+        firebaseId: '',
       );
+
+  String get fullName => '$fName $lName';
+
+  String get formatPhoneNumber => MyFormatters.formatphoneNumber(phoneNumber);
+
+  static List<String> nameParts(fullName) => fullName.split(' ');
+
+  static String generateUsername(String fullName) {
+    List<String> nameParts = fullName.split(" ");
+    String firstName = nameParts[0].toLowerCase();
+    String lastName = nameParts.length > 1 ? nameParts[1].toLowerCase() : "";
+    String camelCaseUsername = "$firstName$lastName";
+    String usernameWithPrefix = "cwt_$camelCaseUsername";
+    return usernameWithPrefix;
+  }
 }
+

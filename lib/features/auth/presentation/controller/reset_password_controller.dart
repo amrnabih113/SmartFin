@@ -40,26 +40,15 @@ class ResetPasswordController extends GetxController {
         return;
       }
 
-      final result = await userResetPassword.call(emailController.text.trim());
+      await userResetPassword.call(emailController.text.trim());
 
-      result.fold(
-        (failure) {
-          MyFullScreenLoader.stopLoading();
-          MyLoaders.errorSnackBar(
-            title: local.ohSnap,
-            message: failure.message,
-          );
-        },
-        (success) {
-          MyFullScreenLoader.stopLoading();
-          Get.off(() => ResetPassword(email: emailController.text.trim()));
-          MyLoaders.successSnackBar(
-            title: local.emailSentTitle,
-            message: local.resetPasswordEmailSentDescription,
-          );
-          Get.off(() => ResetPassword(email: emailController.text.trim()));
-        },
+      MyFullScreenLoader.stopLoading();
+      Get.off(() => ResetPassword(email: emailController.text.trim()));
+      MyLoaders.successSnackBar(
+        title: local.emailSentTitle,
+        message: local.resetPasswordEmailSentDescription,
       );
+      Get.off(() => ResetPassword(email: emailController.text.trim()));
     } catch (e) {
       MyFullScreenLoader.stopLoading();
       MyLoaders.errorSnackBar(
@@ -87,22 +76,12 @@ class ResetPasswordController extends GetxController {
         return;
       }
 
-      final result = await userResetPassword.call(emailController.text.trim());
-      result.fold(
-        (failure) {
-          MyFullScreenLoader.stopLoading();
-          MyLoaders.errorSnackBar(
-            title: local.ohSnap,
-            message: failure.message,
-          );
-        },
-        (success) {
-          MyFullScreenLoader.stopLoading();
-          MyLoaders.successSnackBar(
-            title: local.emailSentTitle,
-            message: local.resetPasswordEmailSentDescription,
-          );
-        },
+      await userResetPassword.call(emailController.text.trim());
+
+      MyFullScreenLoader.stopLoading();
+      MyLoaders.successSnackBar(
+        title: local.emailSentTitle,
+        message: local.resetPasswordEmailSentDescription,
       );
     } catch (e) {
       MyFullScreenLoader.stopLoading();

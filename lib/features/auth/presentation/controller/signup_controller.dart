@@ -11,17 +11,17 @@ import 'package:smartFin/features/auth/domain/usecases/user_sign_up.dart';
 import 'package:smartFin/features/auth/presentation/pages/verify_email_screen.dart';
 import 'package:smartFin/generated/l10n.dart';
 
-class SignUpcontroller extends GetxController {
-  static SignUpcontroller get instance => Get.find();
+class SignUpController extends GetxController {
+  static SignUpController get instance => Get.find();
   final UserSignUp userSignUp;
   final UserSignOut userSignOut;
-  final GetStorage lcocalStorage;
+  final GetStorage localStorage;
   final AppLocalizations local = AppLocalizations.current;
 
-  SignUpcontroller({
+  SignUpController({
     required this.userSignUp,
     required this.userSignOut,
-    required this.lcocalStorage,
+    required this.localStorage,
   });
 
   final fNameController = TextEditingController();
@@ -37,7 +37,6 @@ class SignUpcontroller extends GetxController {
 
   void togglePassword() {
     hidePassword.value = !hidePassword.value;
-    update();
   }
 
   Future<void> signup() async {
@@ -45,38 +44,45 @@ class SignUpcontroller extends GetxController {
     try {
       MyFullScreenLoader.openLoadingDialog(
           local.signingUp, MyImages.docerAnimation);
+
       final isConnected = await NetworkManager.instance.isConnected();
       if (!isConnected) {
         MyFullScreenLoader.stopLoading();
         MyLoaders.errorSnackBar(
-            title: local.ohSnap, message: local.noInternetConnection);
+          title: local.ohSnap,
+          message: local.noInternetConnection,
+        );
         return;
       }
+
       if (!agreeTerms.value) {
         MyFullScreenLoader.stopLoading();
-        MyLoaders.errorSnackBar(title: local.ohSnap, message: local.agreeTerms);
+        MyLoaders.errorSnackBar(
+          title: local.ohSnap,
+          message: local.agreeTerms,
+        );
         return;
       }
+
       final SignupData signupData = SignupData(
-          firstName: fNameController.text.trim(),
-          lastName: lNameController.text.trim(),
-          userName: userNameController.text.trim(),
-          email: emailController.text.trim(),
-          password: passwordController.text.trim());
-      final result = await userSignUp.call(signupData);
-      result.fold((failure) {
-        MyFullScreenLoader.stopLoading();
-        MyLoaders.errorSnackBar(title: local.ohSnap, message: failure.message);
-        return;
-      }, (success) {
-        MyFullScreenLoader.stopLoading();
-        Get.to(() => VerifyEmailSCreen(email: emailController.text.trim()));
-        print('success $success');
-      });
+        firstName: fNameController.text.trim(),
+        lastName: lNameController.text.trim(),
+        userName: userNameController.text.trim(),
+        email: emailController.text.trim(),
+        password: passwordController.text.trim(),
+      );
+
+      await userSignUp.call(signupData);
+
+      MyFullScreenLoader.stopLoading();
+      Get.to(() => VerifyEmailSCreen(email: emailController.text.trim()));
     } catch (e) {
+      print("Error: $e");
       MyFullScreenLoader.stopLoading();
       MyLoaders.errorSnackBar(
-          title: local.ohSnap, message: local.signUpFailedTryAgain);
+        title: local.ohSnap,
+        message: e.toString(),
+      );
     }
   }
 }

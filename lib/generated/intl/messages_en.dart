@@ -30,6 +30,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "analysis": MessageLookupByLibrary.simpleMessage("Analysis"),
         "analytics": MessageLookupByLibrary.simpleMessage("Analytics"),
         "and": MessageLookupByLibrary.simpleMessage("and"),
+        "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "categories": MessageLookupByLibrary.simpleMessage("Categories"),
         "changeYourPasswordSubTitle": MessageLookupByLibrary.simpleMessage(
             "Your Account Security is Our Priority! We\'ve Sent You a Secure Link to Safely Change Your Password and Keep Your Account Protected."),
@@ -38,12 +39,27 @@ class MessageLookup extends MessageLookupByLibrary {
         "confirmEmail": MessageLookupByLibrary.simpleMessage("Confirm Email"),
         "confirmEmailSubtitle": MessageLookupByLibrary.simpleMessage(
             "Please check you email to vreify it so you can enjoy controlling your budgets"),
+        "delete": MessageLookupByLibrary.simpleMessage("Delete"),
+        "deleteAccount": MessageLookupByLibrary.simpleMessage("Delete Account"),
+        "deleteAccountDescription": MessageLookupByLibrary.simpleMessage(
+            "This action cannot be undone. All your data will be lost."),
+        "deleteAccountFailed": MessageLookupByLibrary.simpleMessage(
+            "Account deletion failed. Please try again later."),
+        "deleteAccountInProgress":
+            MessageLookupByLibrary.simpleMessage("Deleting your account..."),
+        "deleteAccountMessage": MessageLookupByLibrary.simpleMessage(
+            "Are you sure you want to delete your account?"),
+        "deleteAccountSuccess": MessageLookupByLibrary.simpleMessage(
+            "Account deleted successfully."),
         "done": MessageLookupByLibrary.simpleMessage("Done"),
         "email": MessageLookupByLibrary.simpleMessage("E-mail"),
         "emailAlreadyExists": MessageLookupByLibrary.simpleMessage(
             "Email already exists. Please use a different email."),
         "emailSentTitle":
             MessageLookupByLibrary.simpleMessage("Email sent successfully."),
+        "error": MessageLookupByLibrary.simpleMessage("Error"),
+        "errorMessage": MessageLookupByLibrary.simpleMessage(
+            "An error occurred. Please try again later."),
         "expenses": MessageLookupByLibrary.simpleMessage("Expenses"),
         "firstName": MessageLookupByLibrary.simpleMessage("First Name"),
         "forgetPasswordDescription": MessageLookupByLibrary.simpleMessage(
@@ -61,7 +77,12 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Invite a Member"),
         "logInFailedTryAgain": MessageLookupByLibrary.simpleMessage(
             "Login failed. Please check your credentials."),
+        "logOut": MessageLookupByLibrary.simpleMessage("Log Out"),
+        "logOutMessage": MessageLookupByLibrary.simpleMessage(
+            "Are you sure you want to log out?"),
         "loggingIn": MessageLookupByLibrary.simpleMessage("Logging in..."),
+        "loggingOut": MessageLookupByLibrary.simpleMessage("Logging out..."),
+        "no": MessageLookupByLibrary.simpleMessage("No"),
         "noInternetConnection":
             MessageLookupByLibrary.simpleMessage("No Internet Connection"),
         "ohSnap": MessageLookupByLibrary.simpleMessage("Oh Snap!"),
@@ -124,6 +145,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "userisNull": MessageLookupByLibrary.simpleMessage("User is Null"),
         "username": MessageLookupByLibrary.simpleMessage("Username"),
         "viewMore": MessageLookupByLibrary.simpleMessage("View more"),
+        "yes": MessageLookupByLibrary.simpleMessage("Yes"),
         "yourAccountCreatedSubTitle": MessageLookupByLibrary.simpleMessage(
             "Welcome to Your Ultimate Shopping Destination: Your Account is Created, Unleash the Joy of Seamless Online Shopping!"),
         "yourAccountCreatedTitle": MessageLookupByLibrary.simpleMessage(

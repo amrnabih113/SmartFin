@@ -739,6 +739,156 @@ class AppLocalizations {
       args: [],
     );
   }
+
+  /// `Logging out...`
+  String get loggingOut {
+    return Intl.message(
+      'Logging out...',
+      name: 'loggingOut',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Log Out`
+  String get logOut {
+    return Intl.message(
+      'Log Out',
+      name: 'logOut',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cancel`
+  String get cancel {
+    return Intl.message(
+      'Cancel',
+      name: 'cancel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Are you sure you want to log out?`
+  String get logOutMessage {
+    return Intl.message(
+      'Are you sure you want to log out?',
+      name: 'logOutMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Yes`
+  String get yes {
+    return Intl.message(
+      'Yes',
+      name: 'yes',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No`
+  String get no {
+    return Intl.message(
+      'No',
+      name: 'no',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delete`
+  String get delete {
+    return Intl.message(
+      'Delete',
+      name: 'delete',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delete Account`
+  String get deleteAccount {
+    return Intl.message(
+      'Delete Account',
+      name: 'deleteAccount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Are you sure you want to delete your account?`
+  String get deleteAccountMessage {
+    return Intl.message(
+      'Are you sure you want to delete your account?',
+      name: 'deleteAccountMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `This action cannot be undone. All your data will be lost.`
+  String get deleteAccountDescription {
+    return Intl.message(
+      'This action cannot be undone. All your data will be lost.',
+      name: 'deleteAccountDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Account deleted successfully.`
+  String get deleteAccountSuccess {
+    return Intl.message(
+      'Account deleted successfully.',
+      name: 'deleteAccountSuccess',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Account deletion failed. Please try again later.`
+  String get deleteAccountFailed {
+    return Intl.message(
+      'Account deletion failed. Please try again later.',
+      name: 'deleteAccountFailed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Deleting your account...`
+  String get deleteAccountInProgress {
+    return Intl.message(
+      'Deleting your account...',
+      name: 'deleteAccountInProgress',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Error`
+  String get error {
+    return Intl.message(
+      'Error',
+      name: 'error',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `An error occurred. Please try again later.`
+  String get errorMessage {
+    return Intl.message(
+      'An error occurred. Please try again later.',
+      name: 'errorMessage',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<AppLocalizations> {

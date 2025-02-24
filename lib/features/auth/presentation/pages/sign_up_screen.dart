@@ -20,8 +20,8 @@ class SignUpScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final signupController = Get.put(SignUpcontroller(
-        userSignUp: sl(), userSignOut: sl(), lcocalStorage: sl()));
+    final signupController = Get.put(SignUpController(
+        userSignUp: sl(), userSignOut: sl(), localStorage: sl()));
     return Scaffold(
       appBar: const MyAppBar(
         showBackButton: true,
