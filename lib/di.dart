@@ -18,6 +18,17 @@ import 'package:smartFin/features/auth/domain/usecases/user_sign_in_with_google.
 import 'package:smartFin/features/auth/domain/usecases/user_sign_out.dart';
 import 'package:smartFin/features/auth/domain/usecases/user_sign_up.dart';
 import 'package:smartFin/features/auth/presentation/controller/signin_controller.dart';
+import 'package:smartFin/features/budgets/data/repository/budget_repository_impl.dart';
+import 'package:smartFin/features/budgets/data/services/budget_local_data_sourse.dart';
+import 'package:smartFin/features/budgets/domain/repository/budget_repository.dart';
+import 'package:smartFin/features/budgets/domain/usecases/add_budget_usecase.dart';
+import 'package:smartFin/features/budgets/domain/usecases/delete_budget_usecase.dart';
+import 'package:smartFin/features/budgets/domain/usecases/get_active_budgets_usecase.dart';
+import 'package:smartFin/features/budgets/domain/usecases/get_budget_by_id_usecase.dart';
+import 'package:smartFin/features/budgets/domain/usecases/get_budgets_usecase.dart';
+import 'package:smartFin/features/budgets/domain/usecases/get_main_budget_usecase.dart';
+import 'package:smartFin/features/budgets/domain/usecases/set_main_budget_usecase.dart';
+import 'package:smartFin/features/budgets/domain/usecases/update_budget_usecase.dart';
 import 'package:smartFin/features/categories/domain/repository/category_repository.dart';
 import 'package:smartFin/features/categories/data/services/local/sqflite_categories_service.dart';
 import 'package:smartFin/features/categories/data/services/local/sqflite_categories_service_impl.dart';
@@ -49,30 +60,44 @@ class Di {
     sl.registerLazySingleton<SupabaseClient>(() => Supabase.instance.client);
     sl.registerLazySingleton<SqliteService>(() => SqliteServiceImp());
     sl.registerLazySingleton<FirebaseAuth>(() => FirebaseAuth.instance);
-
     sl.registerLazySingleton<MyLocalStorage>(() => MyLocalStorage.instance());
 
     // Register Service
+
+    // Auth
     sl.registerLazySingleton<Auth>(() => FirebaseAuthImpl(sl(), sl()));
     sl.registerLazySingleton<SqfliteAuth>(() => SqfliteAuthImp(sl()));
     sl.registerLazySingleton<SupabaseAuth>(() => SupabaseAuth(sl()));
-
+    // Transactions
     sl.registerLazySingleton<SqliteTransactionsService>(
         () => SqliteTransactionsServiceImpl(sl(), sl()));
     sl.registerLazySingleton<SupabaseTransactionsService>(
         () => SupabaseTransactionsServiceImpl(sl()));
+    // Categories
     sl.registerLazySingleton<SqfliteCategoriesService>(
         () => SqfliteCategoriesServiceImpl(sl(), sl()));
+    // Budgets
+    sl.registerLazySingleton<BudgetLocalDataSourse>(
+        () => BudgetLocalDataSourseImp(sl()));
+
 
     // Register Repository
+
+    // Auth
     sl.registerLazySingleton<AuthRepository>(
         () => AuthRepositoryImpl(sl(), sl(), sl(), sl()));
+    // Onboarding
     sl.registerLazySingleton<OnboardingRepositoy>(
         () => OnboardingRepositoyimpl(storage: sl()));
+    // Transactions
     sl.registerLazySingleton<TransactionsRepository>(() =>
         TransactionsRepositoryImpl(localService: sl(), remoteService: sl()));
+    // Categories
     sl.registerLazySingleton<CategoryRepository>(
         () => CategoryRepositoryImpl(sqfliteCategoriesService: sl()));
+    // Budgets
+    sl.registerLazySingleton<BudgetRepository>(
+        () => BudgetRepositoryImpl(sl(), sl()));
 
     // Register Use Cases
 
@@ -118,6 +143,22 @@ class Di {
         () => UpdateCategoryUseCase(sl()));
     sl.registerLazySingleton<SyncCategoriesWithRemoteUseCase>(
         () => SyncCategoriesWithRemoteUseCase(sl()));
+
+    // budgets
+    sl.registerLazySingleton<AddBudgetUsecase>(() => AddBudgetUsecase(sl()));
+    sl.registerLazySingleton<DeleteBudgetUsecase>(
+        () => DeleteBudgetUsecase(sl()));
+    sl.registerLazySingleton<UpdateBudgetUsecase>(
+        () => UpdateBudgetUsecase(sl()));
+    sl.registerLazySingleton<GetBudgetsUsecase>(() => GetBudgetsUsecase(sl()));
+    sl.registerLazySingleton<GetMainBudgetUsecase>(
+        () => GetMainBudgetUsecase(sl()));
+    sl.registerLazySingleton<SetMainBudgetUsecase>(
+        () => SetMainBudgetUsecase(sl()));
+    sl.registerLazySingleton<GetActiveBudgetsUsecase>(
+        () => GetActiveBudgetsUsecase(sl()));
+    sl.registerLazySingleton<GetBudgetByIdUsecase>(
+        () => GetBudgetByIdUsecase(sl()));
 
     Get.lazyPut(() => SignInController(
         userSignInWithEmailAndPassword: sl(),

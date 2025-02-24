@@ -2,6 +2,8 @@ import 'package:smartFin/data/sqflite/sqlite_service.dart';
 import 'package:smartFin/features/budgets/data/models/budget_model.dart';
 
 abstract class BudgetLocalDataSourse {
+  BudgetLocalDataSourse(BudgetLocalDataSourseImp Function() param0);
+
   Future<void> addBudget(BudgetModel budget);
   Future<void> updateBudget(
     BudgetModel budget,
