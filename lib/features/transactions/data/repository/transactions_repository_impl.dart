@@ -1,116 +1,290 @@
-import 'package:fpdart/fpdart.dart';
-import 'package:smartFin/core/error/failures.dart';
+import 'package:flutter/services.dart';
+import 'package:smartFin/core/constants/texts.dart';
+import 'package:smartFin/core/local_storage/my_local_storage.dart';
 import 'package:smartFin/features/transactions/data/models/transactions_model.dart';
+import 'package:smartFin/features/transactions/data/services/local/transactions_local_datasourse.dart';
+import 'package:smartFin/features/transactions/domain/entites/transactions_entity.dart';
 import 'package:smartFin/features/transactions/domain/repository/transactions_repository.dart';
-import 'package:smartFin/features/transactions/data/services/local/sqlite_transactions_service.dart';
-import 'package:smartFin/features/transactions/data/services/remote/supabase_transactions_service.dart';
+import 'package:sqflite/sqflite.dart';
 
 class TransactionsRepositoryImpl implements TransactionsRepository {
-  final SqliteTransactionsService localService;
-  final SupabaseTransactionsService remoteService;
+  final TransactionsLocalDatasourse localDatasourse;
+  final MyLocalStorage localStorage;
 
-  TransactionsRepositoryImpl({
-    required this.localService,
-    required this.remoteService,
-  });
+  TransactionsRepositoryImpl(
+    this.localDatasourse,
+    this.localStorage,
+  );
 
-  /// Fetch transactions with optional filters.
   @override
-  Future<Either<Failure, List<TransactionsModel>>> getTransactions({
-    DateTime? startDate,
-    DateTime? endDate,
-    String? categoryId,
-    String? accountId,
-    String? transactionType,
-  }) async {
+  Future<void> addTransaction(TransactionEntity transaction) async {
     try {
-      final transactions = await localService.getTransactions(
+      await localDatasourse
+          .addTransaction(TransactionsModel.fromEntity(transaction));
+    } on DatabaseException catch (e) {
+      throw Exception(e);
+    } on FormatException catch (e) {
+      throw Exception(e.message);
+    } on PlatformException catch (e) {
+      throw Exception(e.message);
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  @override
+  Future<void> deleteTransaction(String transactionId) async {
+    try {
+      await localDatasourse.deleteTransaction(transactionId);
+    } on DatabaseException catch (e) {
+      throw Exception(e);
+    } on FormatException catch (e) {
+      throw Exception(e.message);
+    } on PlatformException catch (e) {
+      throw Exception(e.message);
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  @override
+  Future<List<TransactionEntity>> getRecentTransactions() async {
+    final userId = localStorage.readData<String>(MyTexts.userId);
+    if (userId == null) {
+      throw Exception('User not found');
+    }
+
+    try {
+      // Get today's and the past two days' date range
+      final now = DateTime.now();
+      final todayStart = DateTime(now.year, now.month, now.day);
+      final twoDaysAgoStart = todayStart.subtract(const Duration(days: 2));
+      final todayEnd = todayStart
+          .add(const Duration(days: 1))
+          .subtract(const Duration(milliseconds: 1));
+
+      // Fetch transactions from the local data source within the range
+      final List<TransactionEntity> transactions =
+          await localDatasourse.getTransactions(
+        startDate: twoDaysAgoStart,
+        endDate: todayEnd,
+        userId: userId,
+      );
+
+      return transactions;
+    } on DatabaseException catch (e) {
+      throw Exception(e);
+    } on FormatException catch (e) {
+      throw Exception(e.message);
+    } on PlatformException catch (e) {
+      throw Exception(e.message);
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  @override
+  Future<TransactionEntity?> getTransactionById(String transactionId) async {
+    final userId = localStorage.readData<String>(MyTexts.userId);
+    if (userId == null) {
+      throw Exception('User not found');
+    }
+    try {
+      return await localDatasourse.getTransactionById(transactionId);
+    } on DatabaseException catch (e) {
+      throw Exception(e);
+    } on FormatException catch (e) {
+      throw Exception(e.message);
+    } on PlatformException catch (e) {
+      throw Exception(e.message);
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  @override
+  Future<List<TransactionEntity>> getTransactionsByAccount(
+      String accountId) async {
+    final userId = localStorage.readData<String>(MyTexts.userId);
+    if (userId == null) {
+      throw Exception('User not found');
+    }
+
+    try {
+      final transactions = await localDatasourse.getTransactions(
+        userId: userId,
+        accountId: accountId,
+      );
+      return transactions;
+    } on DatabaseException catch (e) {
+      throw Exception(e);
+    } on FormatException catch (e) {
+      throw Exception(e.message);
+    } on PlatformException catch (e) {
+      throw Exception(e.message);
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  @override
+  Future<List<TransactionEntity>> getTransactionsByBudget(
+      String budgetId) async {
+    final userId = localStorage.readData<String>(MyTexts.userId);
+    if (userId == null) {
+      throw Exception('User not found');
+    }
+    try {
+      return await localDatasourse.getTransactions(
+        userId: userId,
+        budgetId: budgetId,
+      );
+    } on DatabaseException catch (e) {
+      throw Exception(e);
+    } on FormatException catch (e) {
+      throw Exception(e.message);
+    } on PlatformException catch (e) {
+      throw Exception(e.message);
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  @override
+  Future<List<TransactionEntity>> getTransactionsByCategory(
+      String categoryId) async {
+    final userId = localStorage.readData<String>(MyTexts.userId);
+    if (userId == null) {
+      throw Exception('User not found');
+    }
+    try {
+      return await localDatasourse.getTransactions(
+        userId: userId,
+        categoryId: categoryId,
+      );
+    } on DatabaseException catch (e) {
+      throw Exception(e);
+    } on FormatException catch (e) {
+      throw Exception(e.message);
+    } on PlatformException catch (e) {
+      throw Exception(e.message);
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  @override
+  Future<List<TransactionEntity>> getTransactionsByDate(DateTime date) async {
+    final userId = localStorage.readData<String>(MyTexts.userId);
+    if (userId == null) {
+      throw Exception('User not found');
+    }
+    try {
+      return await localDatasourse.getTransactions(
+        userId: userId,
+        startDate: date,
+        endDate: date.add(const Duration(days: 1)),
+      );
+    } on DatabaseException catch (e) {
+      throw Exception(e);
+    } on FormatException catch (e) {
+      throw Exception(e.message);
+    } on PlatformException catch (e) {
+      throw Exception(e.message);
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  @override
+  Future<List<TransactionEntity>> getTransactionsByDateRange(
+      DateTime startDate, DateTime endDate) async {
+    final userId = localStorage.readData<String>(MyTexts.userId);
+    if (userId == null) {
+      throw Exception('User not found');
+    }
+    try {
+      return await localDatasourse.getTransactions(
+        userId: userId,
         startDate: startDate,
         endDate: endDate,
-        categoryId: categoryId,
-        accountId: accountId,
+      );
+    } on DatabaseException catch (e) {
+      throw Exception(e);
+    } on FormatException catch (e) {
+      throw Exception(e.message);
+    } on PlatformException catch (e) {
+      throw Exception(e.message);
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  @override
+  Future<List<TransactionEntity>> getTransactionsByType(
+      String transactionType) async {
+    final userId = localStorage.readData<String>(MyTexts.userId);
+    if (userId == null) {
+      throw Exception('User not found');
+    }
+    try {
+      return await localDatasourse.getTransactions(
+        userId: userId,
         transactionType: transactionType,
       );
-      return Right(transactions);
+    } on DatabaseException catch (e) {
+      throw Exception(e);
+    } on FormatException catch (e) {
+      throw Exception(e.message);
+    } on PlatformException catch (e) {
+      throw Exception(e.message);
     } catch (e) {
-      return Left(DatabaseFailure(message: e.toString()));
+      throw Exception(e);
     }
   }
 
-  /// Retrieve a single transaction by ID.
   @override
-  Future<Either<Failure, TransactionsModel?>> getTransactionById(String transactionId) async {
+  Future<List<TransactionEntity>> getTransactoinsByMonth(
+      String month, String year) async {
+    final userId = localStorage.readData<String>(MyTexts.userId);
+    if (userId == null) {
+      throw Exception('User not found');
+    }
     try {
-      final transaction = await localService.getTransactionById(transactionId);
-      return Right(transaction);
+      final transactions = await localDatasourse.getTransactions(
+        userId: userId,
+        startDate: DateTime(int.parse(year), int.parse(month)),
+        endDate: DateTime(int.parse(year), int.parse(month) + 1),
+      );
+      return transactions;
+    } on DatabaseException catch (e) {
+      throw Exception(e);
+    } on FormatException catch (e) {
+      throw Exception(e.message);
+    } on PlatformException catch (e) {
+      throw Exception(e.message);
     } catch (e) {
-      return Left(DatabaseFailure(message: e.toString()));
+      throw Exception(e);
     }
   }
 
-  /// Add a new transaction and sync with remote.
   @override
-  Future<Either<Failure, int>> addTransaction(TransactionsModel transaction) async {
-    try {
-      final result = await localService.addTransaction(transaction);
-      return Right(result);
-    } catch (e) {
-      return Left(DatabaseFailure(message: e.toString()));
+  Future<void> updateTransaction(TransactionEntity transaction) async {
+    final userId = localStorage.readData<String>(MyTexts.userId);
+    if (userId == null) {
+      throw Exception('User not found');
     }
-  }
-
-  /// Update a transaction and sync with remote.
-  @override
-  Future<Either<Failure, int>> updateTransaction(TransactionsModel transaction) async {
     try {
-      final result = await localService.updateTransaction(transaction);
-      return Right(result);
+      await localDatasourse
+          .updateTransaction(TransactionsModel.fromEntity(transaction));
+    } on DatabaseException catch (e) {
+      throw Exception(e);
+    } on FormatException catch (e) {
+      throw Exception(e.message);
+    } on PlatformException catch (e) {
+      throw Exception(e.message);
     } catch (e) {
-      return Left(DatabaseFailure(message: e.toString()));
-    }
-  }
-
-  /// Delete a transaction and sync with remote.
-  @override
-  Future<Either<Failure, int>> deleteTransaction(String transactionId) async {
-    try {
-      final result = await localService.deleteTransaction(transactionId);
-      return Right(result);
-    } catch (e) {
-      return Left(DatabaseFailure(message: e.toString()));
-    }
-  }
-
-  /// Delete multiple transactions and sync with remote.
-  @override
-  Future<Either<Failure, int>> deleteMultipleTransactions(List<String> transactionIds) async {
-    try {
-      final result = await localService.deleteMultipleTransactions(transactionIds);
-      return Right(result);
-    } catch (e) {
-      return Left(DatabaseFailure(message: e.toString()));
-    }
-  }
-
-  /// Sync local transactions with remote storage.
-  @override
-  Future<Either<Failure, void>> syncTransactionsWithRemote() async {
-    try {
-      await localService.syncTransactionsWithRemote();
-      return const Right(null);
-    } catch (e) {
-      return Left(ServerFailure('Server error',message: e.toString()));
-    }
-  }
-
-  /// Batch insert multiple transactions for better performance.
-  @override
-  Future<Either<Failure, void>> batchInsertTransactions(List<TransactionsModel> transactions) async {
-    try {
-      await localService.batchInsertTransactions(transactions);
-      return const Right(null);
-    } catch (e) {
-      return Left(DatabaseFailure(message: e.toString()));
+      throw Exception(e);
     }
   }
 }

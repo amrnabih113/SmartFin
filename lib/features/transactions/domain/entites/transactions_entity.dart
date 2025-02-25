@@ -1,12 +1,13 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-class TransactionEntity {
+import 'package:equatable/equatable.dart';
+
+class TransactionEntity extends Equatable {
   final String id;
   final String userId;
   final String categoryId;
   final String accountId;
   final String budgetId;
   final double amount;
-  final String transactionType; // 'income' or 'expense'
+  final String transactionType;
   final String note;
   final String syncStatus;
   final DateTime date;
@@ -50,5 +51,16 @@ class TransactionEntity {
     );
   }
 
-  List<Object?> get props => [id, userId, categoryId, accountId, budgetId, amount, transactionType, note, date];
+  @override
+  List<Object?> get props => [
+        id,
+        userId,
+        categoryId,
+        accountId,
+        budgetId,
+        amount,
+        transactionType,
+        note,
+        date
+      ];
 }

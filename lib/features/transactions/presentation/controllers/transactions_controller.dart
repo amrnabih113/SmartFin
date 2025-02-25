@@ -7,14 +7,14 @@ import 'package:smartFin/features/auth/presentation/pages/sucssess_screen.dart';
 import 'package:smartFin/features/categories/domain/entities/category_entity.dart';
 import 'package:smartFin/features/categories/domain/usecases/categories_usecases.dart';
 import 'package:smartFin/features/transactions/data/models/transactions_model.dart';
-import 'package:smartFin/features/transactions/domain/usecases/add_transaction.dart';
+import 'package:smartFin/features/transactions/domain/usecases/add_transaction_usecase.dart';
 import 'package:smartFin/features/transactions/presentation/controllers/calculator_conreoller.dart';
 import 'package:smartFin/features/transactions/presentation/pages/calculator_screen.dart';
 import 'package:smartFin/generated/l10n.dart';
 import 'package:uuid/uuid.dart';
 
 class TransactionsController extends GetxController {
-  final AddTransaction addTransaction;
+  final AddTransactionUsecase addTransaction;
   final GetTopFiveCategoriesUseCase getTopFiveCategoriesUseCase;
 
   TransactionsController(
@@ -76,7 +76,7 @@ class TransactionsController extends GetxController {
         syncStatus: 'pending',
       );
 
-      await addTransaction.call(newTransaction);
+      await addTransaction.execute(newTransaction);
 
       Get.off(() => SuccessScreen(
           image: MyImages.successAnimation,

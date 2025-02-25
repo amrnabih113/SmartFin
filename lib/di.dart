@@ -37,18 +37,23 @@ import 'package:smartFin/features/categories/domain/usecases/categories_usecases
 import 'package:smartFin/features/onboarding/data/repository/onboarding_repository.dart';
 import 'package:smartFin/features/onboarding/domain/repository/onboarding_repositoy.dart';
 import 'package:smartFin/features/onboarding/domain/usecases/onboarding_usecases.dart';
+import 'package:smartFin/features/transactions/data/services/local/transactions_local_datasourse.dart';
 import 'package:smartFin/features/transactions/domain/repository/transactions_repository.dart';
-import 'package:smartFin/features/transactions/data/services/local/sqlite_transactions_service.dart';
-import 'package:smartFin/features/transactions/data/services/local/sqlite_transactions_service_impl.dart';
 import 'package:smartFin/features/transactions/data/services/remote/supabase_transactions_service.dart';
 import 'package:smartFin/features/transactions/data/services/remote/supabase_transactions_service_impl.dart';
 import 'package:smartFin/features/transactions/data/repository/transactions_repository_impl.dart';
-import 'package:smartFin/features/transactions/domain/usecases/add_transaction.dart';
-import 'package:smartFin/features/transactions/domain/usecases/delete_multible_transactions.dart';
-import 'package:smartFin/features/transactions/domain/usecases/delete_transaction.dart';
-import 'package:smartFin/features/transactions/domain/usecases/get_transactions.dart';
-import 'package:smartFin/features/transactions/domain/usecases/sync_with_remote.dart';
-import 'package:smartFin/features/transactions/domain/usecases/update_transaction.dart';
+import 'package:smartFin/features/transactions/domain/usecases/add_transaction_usecase.dart';
+import 'package:smartFin/features/transactions/domain/usecases/delete_transaction_usecase.dart';
+import 'package:smartFin/features/transactions/domain/usecases/get_recent_transactions_usecase.dart';
+import 'package:smartFin/features/transactions/domain/usecases/get_transactions_by_account_usecase.dart';
+import 'package:smartFin/features/transactions/domain/usecases/get_transactions_by_budget_usecase.dart';
+import 'package:smartFin/features/transactions/domain/usecases/get_transactions_by_category_usecase.dart';
+import 'package:smartFin/features/transactions/domain/usecases/get_transactions_by_date_range_usecase.dart';
+import 'package:smartFin/features/transactions/domain/usecases/get_transactions_by_date_usecase.dart';
+import 'package:smartFin/features/transactions/domain/usecases/get_transactions_by_month_usecase.dart';
+import 'package:smartFin/features/transactions/domain/usecases/get_transactions_by_type_usecase.dart';
+import 'package:smartFin/features/transactions/domain/usecases/get_transactions_with_id_usecase.dart';
+import 'package:smartFin/features/transactions/domain/usecases/update_transaction_usecase.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 final sl = GetIt.instance;
@@ -69,8 +74,8 @@ class Di {
     sl.registerLazySingleton<SqfliteAuth>(() => SqfliteAuthImp(sl()));
     sl.registerLazySingleton<SupabaseAuth>(() => SupabaseAuth(sl()));
     // Transactions
-    sl.registerLazySingleton<SqliteTransactionsService>(
-        () => SqliteTransactionsServiceImpl(sl(), sl()));
+    sl.registerLazySingleton<TransactionsLocalDatasourse>(
+        () => TransactionsLocalDatasourseImpl(sl()));
     sl.registerLazySingleton<SupabaseTransactionsService>(
         () => SupabaseTransactionsServiceImpl(sl()));
     // Categories
@@ -79,7 +84,6 @@ class Di {
     // Budgets
     sl.registerLazySingleton<BudgetLocalDataSourse>(
         () => BudgetLocalDataSourseImp(sl()));
-
 
     // Register Repository
 
@@ -90,8 +94,8 @@ class Di {
     sl.registerLazySingleton<OnboardingRepositoy>(
         () => OnboardingRepositoyimpl(storage: sl()));
     // Transactions
-    sl.registerLazySingleton<TransactionsRepository>(() =>
-        TransactionsRepositoryImpl(localService: sl(), remoteService: sl()));
+    sl.registerLazySingleton<TransactionsRepository>(
+        () => TransactionsRepositoryImpl(sl(), sl()));
     // Categories
     sl.registerLazySingleton<CategoryRepository>(
         () => CategoryRepositoryImpl(sqfliteCategoriesService: sl()));
@@ -120,15 +124,31 @@ class Di {
     sl.registerLazySingleton<UserSignUp>(() => UserSignUp(sl()));
     sl.registerLazySingleton<UserResetPassword>(() => UserResetPassword(sl()));
 
-    // transactions
-    sl.registerLazySingleton<GetTransactions>(() => GetTransactions(sl()));
-    sl.registerLazySingleton<AddTransaction>(() => AddTransaction(sl()));
-    sl.registerLazySingleton<DeleteMultipleTransactions>(
-        () => DeleteMultipleTransactions(sl()));
-    sl.registerLazySingleton<DeleteTransaction>(() => DeleteTransaction(sl()));
-    sl.registerLazySingleton<UpdateTransaction>(() => UpdateTransaction(sl()));
-    sl.registerLazySingleton<SyncTransactionsWithRemote>(
-        () => SyncTransactionsWithRemote(sl()));
+    // Transactions UseCases
+    sl.registerLazySingleton<AddTransactionUsecase>(
+        () => AddTransactionUsecase(sl()));
+    sl.registerLazySingleton<DeleteTransactionUsecase>(
+        () => DeleteTransactionUsecase(sl()));
+    sl.registerLazySingleton<UpdateTransactionUsecase>(
+        () => UpdateTransactionUsecase(sl()));
+    sl.registerLazySingleton<GetRecentTransactionsUsecase>(
+        () => GetRecentTransactionsUsecase(sl()));
+    sl.registerLazySingleton<GetTransactionsByAccountUsecase>(
+        () => GetTransactionsByAccountUsecase(sl()));
+    sl.registerLazySingleton<GetTransactionsByBudgetUsecase>(
+        () => GetTransactionsByBudgetUsecase(sl()));
+    sl.registerLazySingleton<GetTransactionsByCategoryUsecase>(
+        () => GetTransactionsByCategoryUsecase(sl()));
+    sl.registerLazySingleton<GetTransactionsByDateUsecase>(
+        () => GetTransactionsByDateUsecase(sl()));
+    sl.registerLazySingleton<GetTransactionsByDateRangeUsecase>(
+        () => GetTransactionsByDateRangeUsecase(sl()));
+    sl.registerLazySingleton<GetTransactionsByMonthUsecase>(
+        () => GetTransactionsByMonthUsecase(sl()));
+    sl.registerLazySingleton<GetTransactionsByTypeUsecase>(
+        () => GetTransactionsByTypeUsecase(sl()));
+    sl.registerLazySingleton<GetTransactionsWithIdUsecase>(
+        () => GetTransactionsWithIdUsecase(sl()));
 
     // categories
     sl.registerLazySingleton<GetCategoriesUseCase>(

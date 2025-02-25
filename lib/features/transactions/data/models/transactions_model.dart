@@ -1,11 +1,8 @@
 import 'dart:convert';
-
 import 'package:smartFin/features/transactions/domain/entites/transactions_entity.dart';
 
-enum SyncStatus { local, synced, syncing }
-
 class TransactionsModel extends TransactionEntity {
-  TransactionsModel({
+  const TransactionsModel({
     required super.id,
     required super.userId,
     required super.categoryId,
@@ -41,21 +38,18 @@ class TransactionsModel extends TransactionEntity {
       accountId: map['account_id'] as String,
       budgetId: map['budget_id'] as String,
       amount: (map['amount'] as num).toDouble(),
-      transactionType: map['transaction_type'] as String,
+      transactionType: map['type'] as String,
       note: map['note'] as String,
       date: DateTime.parse(map['date'] as String),
       syncStatus: map['sync_status'] as String,
     );
   }
 
-  /// Convert model to JSON string
   String toJson() => json.encode(toMap());
 
-  /// Create a model from JSON string
   factory TransactionsModel.fromJson(String source) =>
       TransactionsModel.fromMap(json.decode(source));
 
-  /// Convert `TransactionEntity` to `TransactionsModel`
   factory TransactionsModel.fromEntity(TransactionEntity entity) {
     return TransactionsModel(
       id: entity.id,
@@ -71,7 +65,6 @@ class TransactionsModel extends TransactionEntity {
     );
   }
 
-  /// Convert model to `TransactionEntity`
   TransactionEntity toEntity() {
     return TransactionEntity(
       id: id,
@@ -87,3 +80,4 @@ class TransactionsModel extends TransactionEntity {
     );
   }
 }
+

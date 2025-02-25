@@ -1,36 +1,31 @@
-import 'package:fpdart/fpdart.dart';
-import 'package:smartFin/core/error/failures.dart';
-import 'package:smartFin/features/transactions/data/models/transactions_model.dart';
+import 'package:smartFin/features/transactions/domain/entites/transactions_entity.dart';
 
 abstract class TransactionsRepository {
-  /// Fetches all transactions with optional filtering by date range, category, account, and type.
-  Future<Either<Failure, List<TransactionsModel>>> getTransactions({
-    DateTime? startDate,
-    DateTime? endDate,
-    String? categoryId,
-    String? accountId,
-    String? transactionType, // 'income' or 'expense'
-  });
 
-  /// Retrieves a single transaction by its ID.
-  Future<Either<Failure, TransactionsModel?>> getTransactionById(String transactionId);
+  Future<List<TransactionEntity>> getRecentTransactions();
 
-  /// Adds a new transaction to the database.
-  Future<Either<Failure, int>> addTransaction(TransactionsModel transaction);
+  Future<List<TransactionEntity>> getTransactionsByDate(DateTime date);
+  
+  Future<List<TransactionEntity>> getTransactionsByCategory(String categoryId);
 
-  /// Updates an existing transaction.
-  Future<Either<Failure, int>> updateTransaction(TransactionsModel transaction);
+  Future<List<TransactionEntity>> getTransactionsByAccount(String accountId);
 
-  /// Deletes a transaction by ID.
-  Future<Either<Failure, int>> deleteTransaction(String transactionId);
+  Future<List<TransactionEntity>> getTransactionsByBudget(String budgetId);
 
-  /// Deletes multiple transactions by their IDs.
-  Future<Either<Failure, int>> deleteMultipleTransactions(List<String> transactionIds);
+  Future<List<TransactionEntity>> getTransactionsByDateRange(DateTime startDate, DateTime endDate);
 
-  /// Syncs local transactions with Supabase (or another remote backend).
-  Future<Either<Failure, void>> syncTransactionsWithRemote();
+  Future<List<TransactionEntity>> getTransactionsByType(String transactionType);
 
-  /// Batches multiple transactions for optimized performance.
-  Future<Either<Failure, void>> batchInsertTransactions(List<TransactionsModel> transactions);
+  Future<List<TransactionEntity>> getTransactoinsByMonth(String month, String year);
+
+  Future<TransactionEntity?> getTransactionById(String transactionId);
+
+  Future<void> addTransaction(TransactionEntity transaction);
+
+  Future<void> updateTransaction(TransactionEntity transaction);
+
+  Future<void> deleteTransaction(String transactionId);
+
+
 }
 
