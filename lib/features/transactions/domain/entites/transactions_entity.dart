@@ -4,8 +4,8 @@ class TransactionEntity extends Equatable {
   final String id;
   final String userId;
   final String categoryId;
-  final String accountId;
-  final String budgetId;
+  final String? accountId;
+  final String? budgetId;
   final double amount;
   final String transactionType;
   final String note;
@@ -16,8 +16,8 @@ class TransactionEntity extends Equatable {
     required this.id,
     required this.userId,
     required this.categoryId,
-    required this.accountId,
-    required this.budgetId,
+    this.accountId,
+    this.budgetId,
     required this.amount,
     required this.transactionType,
     required this.note,

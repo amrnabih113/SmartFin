@@ -1,9 +1,9 @@
 import 'package:smartFin/features/expenses/domain/entites/expense_entity.dart';
 
 abstract class ExpensesRepository {
-  Future<List<ExpenseEntity>> getExpensesByYear(int year);
+  Future<List<ExpenseEntity>> getExpensesByYear(String year);
 
-  Future<List<ExpenseEntity>> getExpensesByMonth(int month, int year);
+  Future<List<ExpenseEntity>> getExpensesByMonth(String month, String year);
 
   Future<List<ExpenseEntity>> getExpensesByDate(DateTime date);
 

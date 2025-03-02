@@ -82,5 +82,10 @@
   "deleteAccountFailed": "Account deletion failed. Please try again later.",
   "deleteAccountInProgress": "Deleting your account...",
   "error": "Error",
-  "errorMessage": "An error occurred. Please try again later."
+  "errorMessage": "An error occurred. Please try again later.",
+  "tryAgain": "Try Again",
+  "noTransactions": "No transactions This Month",
+  "addMainBudget": "Add Main Budget",
+  "today": "Today",
+  "yesterday": "Yesterday"
 }

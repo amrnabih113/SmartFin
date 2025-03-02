@@ -10,6 +10,8 @@ abstract class TransactionsLocalDatasourse {
     String? categoryId,
     String? accountId,
     String? transactionType,
+    int? limit,
+    String? orderBy,
   });
   Future<int> addTransaction(TransactionsModel transaction);
   Future<int> updateTransaction(TransactionsModel transaction);
@@ -24,55 +26,72 @@ class TransactionsLocalDatasourseImpl implements TransactionsLocalDatasourse {
 
   TransactionsLocalDatasourseImpl(this.sqliteService);
 
-  @override
-  Future<List<TransactionsModel>> getTransactions(
-      {required String userId,
-      String? budgetId,
-      DateTime? startDate,
-      DateTime? endDate,
-      String? categoryId,
-      String? accountId,
-      String? transactionType}) async {
-    final db = await sqliteService.database;
-    final whereClauses = <String>[];
-    final whereArgs = <dynamic>[];
+@override
+Future<List<TransactionsModel>> getTransactions({
+  required String userId,
+  String? budgetId,
+  DateTime? startDate,
+  DateTime? endDate,
+  String? categoryId,
+  String? accountId,
+  String? transactionType,
+  int? limit,
+  String? orderBy,
+}) async {
+  final db = await sqliteService.database;
+  final whereClauses = <String>[];
+  final whereArgs = <dynamic>[];
 
-    if (userId != "") {
-      whereClauses.add("user_id = ?");
-      whereArgs.add(userId);
-    }
-
-    if (budgetId != null) {
-      whereClauses.add("budget_id = ?");
-      whereArgs.add(budgetId);
-    }
-
-    if (startDate != null && endDate != null) {
-      whereClauses.add("date BETWEEN ? AND ?");
-      whereArgs.add(startDate.toIso8601String());
-      whereArgs.add(endDate.toIso8601String());
-    }
-
-    if (categoryId != null) {
-      whereClauses.add("category_id = ?");
-      whereArgs.add(categoryId);
-    }
-    if (accountId != null) {
-      whereClauses.add("account_id = ?");
-      whereArgs.add(accountId);
-    }
-    if (transactionType != null) {
-      whereClauses.add("transaction_type = ?");
-      whereArgs.add(transactionType);
-    }
-
-    final whereClause =
-        whereClauses.isEmpty ? null : whereClauses.join(" AND ");
-    final result = await db.query("transactions",
-        where: whereClause, whereArgs: whereArgs);
-
-    return result.map((e) => TransactionsModel.fromMap(e)).toList();
+  if (userId.isNotEmpty) {
+    whereClauses.add("user_id = ?");
+    whereArgs.add(userId);
   }
+
+  if (budgetId != null) {
+    whereClauses.add("budget_id = ?");
+    whereArgs.add(budgetId);
+  }
+
+  if (startDate != null && endDate != null) {
+    whereClauses.add("date BETWEEN ? AND ?");
+    whereArgs.add(startDate.toIso8601String());
+    whereArgs.add(endDate.toIso8601String());
+  } else if (startDate != null) {
+    whereClauses.add("date >= ?");
+    whereArgs.add(startDate.toIso8601String());
+  } else if (endDate != null) {
+    whereClauses.add("date <= ?");
+    whereArgs.add(endDate.toIso8601String());
+  }
+
+  if (categoryId != null) {
+    whereClauses.add("category_id = ?");
+    whereArgs.add(categoryId);
+  }
+
+  if (accountId != null) {
+    whereClauses.add("account_id = ?");
+    whereArgs.add(accountId);
+  }
+
+  if (transactionType != null) {
+    whereClauses.add("transaction_type = ?");
+    whereArgs.add(transactionType);
+  }
+
+  final whereClause = whereClauses.isNotEmpty ? whereClauses.join(" AND ") : null;
+
+  final result = await db.query(
+    "transactions",
+    where: whereClause,
+    whereArgs: whereArgs,
+    orderBy: orderBy ?? "date DESC", // Default order by date descending
+    limit: limit, // Apply limit if provided
+  );
+
+  return result.map((e) => TransactionsModel.fromMap(e)).toList();
+}
+
 
   @override
   Future<int> addTransaction(TransactionsModel transaction) async {

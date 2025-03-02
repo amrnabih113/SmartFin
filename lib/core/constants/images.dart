@@ -16,7 +16,7 @@ class MyImages {
   static const String sendEmailAnimation =
       "assets/images/animations/send_email.json";
   static const String onboarding1 = "assets/images/animations/onboarding1.json";
-  static const String onboarding2 = "assets/images/animations/onboarding2.json";
+  static const String onboarding2 = "assets/images/animations/onboarsing2.json";
   static const String onboarding3 = "assets/images/animations/onboarding3.json";
   static const String shareAnimation =
       "assets/images/animations/share_animation.json";

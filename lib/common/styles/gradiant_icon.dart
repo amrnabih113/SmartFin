@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:smartFin/core/constants/colors.dart';
+import 'package:smartFin/core/constants/sizes.dart';
 
 class GradientIcon extends StatelessWidget {
   final IconData icon;
   final double size;
   final Gradient gradient;
 
-  const GradientIcon( 
+  const GradientIcon(
       {super.key,
       required this.icon,
-      this.size = 40,
+      this.size = MySizes.iconLg,
       this.gradient = MyColors.primaryGradient});
 
   @override

@@ -37,5 +37,18 @@ class BudgetEntity extends Equatable {
         catgoryId,
         status,
         isMain
-      ];  
+      ];
+
+  static BudgetEntity empty() => BudgetEntity(
+        id: '',
+        userId: '',
+        name: '',
+        amount: 0.0,
+        usedAmount: 0.0,
+        catgoryId: '',
+        status: '',
+        isMain: 0,
+        startDate: DateTime.now(),
+        endDate: DateTime.now(),
+      );
 }

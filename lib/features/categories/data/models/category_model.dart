@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:smartFin/features/categories/domain/entities/category_entity.dart';
 
 class CategoryModel extends CategoryEntity {
-  CategoryModel({
+  const CategoryModel({
     required super.id,
     required super.name,
     required super.icon,
@@ -22,7 +22,16 @@ class CategoryModel extends CategoryEntity {
       transactionsCount: transactionsCount,
     );
   }
-
+  static CategoryModel empty() {
+    return const CategoryModel(
+      id: '',
+      name: '',
+      icon: '',
+      color: '',
+      type: '',
+      transactionsCount: 0,
+    );
+  }
   /// Create a `CategoryModel` from `CategoryEntity`
   factory CategoryModel.fromEntity(CategoryEntity entity) {
     return CategoryModel(
@@ -80,5 +89,6 @@ class CategoryModel extends CategoryEntity {
       transactionsCount: transactionsCount ?? this.transactionsCount,
     );
   }
+
 }
 

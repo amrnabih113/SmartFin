@@ -3,7 +3,7 @@ import 'package:smartFin/core/constants/texts.dart';
 import 'package:smartFin/core/local_storage/my_local_storage.dart';
 import 'package:smartFin/features/budgets/data/models/budget_model.dart';
 import 'package:smartFin/features/budgets/data/services/budget_local_data_sourse.dart';
-import 'package:smartFin/features/budgets/domain/entites/budget_Entity.dart';
+import 'package:smartFin/features/budgets/domain/entites/budget_entity.dart';
 import 'package:smartFin/features/budgets/domain/repository/budget_repository.dart';
 import 'package:sqflite/sqlite_api.dart';
 
@@ -111,6 +111,9 @@ class BudgetRepositoryImpl implements BudgetRepository {
       }
       final budgets =
           await _budgetLocalDataSourse.getBudgets(userId: userId, isMain: 1);
+      if (budgets.isEmpty) {
+        return BudgetEntity.empty();
+      }
       return budgets.first;
     } on DatabaseException catch (e) {
       throw Exception(e);

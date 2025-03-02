@@ -889,6 +889,56 @@ class AppLocalizations {
       args: [],
     );
   }
+
+  /// `Try Again`
+  String get tryAgain {
+    return Intl.message(
+      'Try Again',
+      name: 'tryAgain',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No transactions This Month`
+  String get noTransactions {
+    return Intl.message(
+      'No transactions This Month',
+      name: 'noTransactions',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add Main Budget`
+  String get addMainBudget {
+    return Intl.message(
+      'Add Main Budget',
+      name: 'addMainBudget',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Today`
+  String get today {
+    return Intl.message(
+      'Today',
+      name: 'today',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Yesterday`
+  String get yesterday {
+    return Intl.message(
+      'Yesterday',
+      name: 'yesterday',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<AppLocalizations> {

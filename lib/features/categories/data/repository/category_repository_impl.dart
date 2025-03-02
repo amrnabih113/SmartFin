@@ -1,5 +1,6 @@
+import 'package:flutter/services.dart';
+import 'package:smartFin/features/categories/domain/entities/category_entity.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:smartFin/core/error/failures.dart';
 import 'package:smartFin/features/categories/data/models/category_model.dart';
 import 'package:smartFin/features/categories/domain/repository/category_repository.dart';
 import 'package:smartFin/features/categories/data/services/local/sqflite_categories_service.dart';
@@ -10,13 +11,18 @@ class CategoryRepositoryImpl implements CategoryRepository {
   CategoryRepositoryImpl({required this.sqfliteCategoriesService});
 
   @override
-  Future<CategoryModel> createCategory(CategoryModel category) async {
+  Future<void> createCategory(CategoryEntity category) async {
     try {
-      return await sqfliteCategoriesService.createCategory(category);
+      await sqfliteCategoriesService
+          .createCategory(CategoryModel.fromEntity(category));
     } on DatabaseException catch (e) {
-      throw Failure(message: "Database error: ${e.toString()}");
+      throw Exception(e);
+    } on FormatException catch (e) {
+      throw Exception(e.message);
+    } on PlatformException catch (e) {
+      throw Exception(e.message);
     } catch (e) {
-      throw Failure(message: "Unexpected error: ${e.toString()}");
+      throw Exception(e);
     }
   }
 
@@ -25,55 +31,74 @@ class CategoryRepositoryImpl implements CategoryRepository {
     try {
       await sqfliteCategoriesService.deleteCategory(categoryId);
     } on DatabaseException catch (e) {
-      throw Failure(message: "Failed to delete category: ${e.toString()}");
+      throw Exception(e);
+    } on FormatException catch (e) {
+      throw Exception(e.message);
+    } on PlatformException catch (e) {
+      throw Exception(e.message);
     } catch (e) {
-      throw Failure(message: "Unexpected error: ${e.toString()}");
+      throw Exception(e);
     }
   }
 
   @override
-  Future<List<CategoryModel>> getCategories() async {
+  Future<List<CategoryEntity>> getAllCategories() async {
     try {
       return await sqfliteCategoriesService.getCategories();
     } on DatabaseException catch (e) {
-      throw Failure(message: "Failed to fetch categories: ${e.toString()}");
+      throw Exception(e);
+    } on FormatException catch (e) {
+      throw Exception(e.message);
+    } on PlatformException catch (e) {
+      throw Exception(e.message);
     } catch (e) {
-      throw Failure(message: "Unexpected error: ${e.toString()}");
+      throw Exception(e);
     }
   }
 
   @override
-  Future<List<CategoryModel>> getTopFiveCategories(String type) async {
+  Future<List<CategoryEntity>> getTopFiveCategories(String type) async {
     try {
       return await sqfliteCategoriesService.getTopFiveCategories(type);
     } on DatabaseException catch (e) {
-      throw Failure(message: "Failed to fetch top categories: ${e.toString()}");
+      throw Exception(e);
+    } on FormatException catch (e) {
+      throw Exception(e.message);
+    } on PlatformException catch (e) {
+      throw Exception(e.message);
     } catch (e) {
-      throw Failure(message: "Unexpected error: ${e.toString()}");
+      throw Exception(e);
     }
   }
 
   @override
-  Future<CategoryModel> updateCategory(CategoryModel category) async {
+  Future<void> updateCategory(CategoryEntity category) async {
     try {
-      return await sqfliteCategoriesService.updateCategory(category);
+      await sqfliteCategoriesService
+          .updateCategory(CategoryModel.fromEntity(category));
     } on DatabaseException catch (e) {
-      throw Failure(message: "Failed to update category: ${e.toString()}");
+      throw Exception(e);
+    } on FormatException catch (e) {
+      throw Exception(e.message);
+    } on PlatformException catch (e) {
+      throw Exception(e.message);
     } catch (e) {
-      throw Failure(message: "Unexpected error: ${e.toString()}");
+      throw Exception(e);
     }
   }
 
   @override
-  Future<void> syncCategoriesWithRemote() async {
+  Future<CategoryEntity> getCategoryById(String categoryId) async {
     try {
-      await sqfliteCategoriesService.syncCategoriesWithRemote();
+      return await sqfliteCategoriesService.getCategoryById(categoryId);
     } on DatabaseException catch (e) {
-      throw Failure(
-          message: "Failed to sync categories with remote: ${e.toString()}");
+      throw Exception(e);
+    } on FormatException catch (e) {
+      throw Exception(e.message);
+    } on PlatformException catch (e) {
+      throw Exception(e.message);
     } catch (e) {
-      throw Failure(message: "Unexpected error: ${e.toString()}");
+      throw Exception(e);
     }
   }
 }
-

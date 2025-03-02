@@ -17,12 +17,11 @@ class MyHouseholdScreen extends StatelessWidget {
         padding: const EdgeInsets.all(MySizes.defaultSpacing),
         child: Column(
           children: [
-            
             const BalanceContainer(),
             ItemSperator.vertical(),
             const AnalyticContainer(),
             ItemSperator.vertical(),
-            const ExpencesContainer(),
+            const ExpensesContainer(),
             ItemSperator.vertical(),
             const RecentTransactionsList(),
             ItemSperator.vertical(),

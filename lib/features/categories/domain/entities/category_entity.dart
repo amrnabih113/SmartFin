@@ -1,8 +1,9 @@
+import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:smartFin/core/Icons/icons.dart';
 import 'package:smartFin/core/constants/colors.dart';
 
-class CategoryEntity {
+class CategoryEntity extends Equatable {
   final String id;
   final String name;
   final String icon;
@@ -41,13 +42,15 @@ class CategoryEntity {
 
   IconData get iconData => MyIcons.getIconData(icon);
 
-  factory CategoryEntity.empty() => const CategoryEntity(
-      id: '',
-      name: '',
-      icon: '',
-      type: '',
-      transactionsCount: 0,
-      color: '',
-    );
-  }
+  static CategoryEntity empty() => const CategoryEntity(
+        id: '',
+        name: '',
+        icon: '',
+        type: '',
+        transactionsCount: 0,
+        color: '',
+      );
 
+  @override
+  List<Object?> get props => [id, name, icon, type, transactionsCount, color];
+}

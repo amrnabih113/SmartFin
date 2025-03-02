@@ -4,8 +4,8 @@ import 'package:smartFin/features/expenses/data/models/expense_model.dart';
 abstract class ExpensesLocalDataSource {
   Future<List<ExpenseModel>> getExpenses({
     required String userId,
-    int? year,
-    int? month,
+    String? year,
+    String? month,
     DateTime? date,
     String? categoryId,
     String? accountId,
@@ -23,8 +23,8 @@ class ExpensesLocalDataSourceImp implements ExpensesLocalDataSource {
   @override
   Future<List<ExpenseModel>> getExpenses({
     required String userId,
-    int? year,
-    int? month,
+    String? year,
+    String? month,
     DateTime? date,
     String? categoryId,
     String? accountId,
@@ -43,17 +43,33 @@ class ExpensesLocalDataSourceImp implements ExpensesLocalDataSource {
       whereArgs.add(userId);
     }
 
-    // Filter only expenses
-    whereClauses.add("transaction_type = 'expense'");
+    if (year != null || month != null) {
+      if (year != null && month != null) {
+        // Get the first and last day of the given month and year
+        final startDate = DateTime(int.parse(year), int.parse(month), 1);
+        final endDate = DateTime(int.parse(year), int.parse(month) + 1, 0);
 
-    if (year != null) {
-      whereClauses.add("strftime('%Y', date) = ?");
-      whereArgs.add(year.toString());
-    }
+        whereClauses.add("date BETWEEN ? AND ?");
+        whereArgs.add(startDate.toIso8601String());
+        whereArgs.add(endDate.toIso8601String());
+      } else if (year != null) {
+        // Get the first and last day of the given year
+        final startDate = DateTime(int.parse(year), 1, 1);
+        final endDate = DateTime(int.parse(year), 12, 31);
 
-    if (month != null) {
-      whereClauses.add("strftime('%m', date) = ?");
-      whereArgs.add(month.toString().padLeft(2, '0'));
+        whereClauses.add("date BETWEEN ? AND ?");
+        whereArgs.add(startDate.toIso8601String());
+        whereArgs.add(endDate.toIso8601String());
+      } else if (month != null) {
+        // Default to current year if only month is provided
+        final now = DateTime.now();
+        final startDate = DateTime(now.year, int.parse(month), 1);
+        final endDate = DateTime(now.year, int.parse(month) + 1, 0);
+
+        whereClauses.add("date BETWEEN ? AND ?");
+        whereArgs.add(startDate.toIso8601String());
+        whereArgs.add(endDate.toIso8601String());
+      }
     }
 
     if (date != null) {
@@ -82,8 +98,11 @@ class ExpensesLocalDataSourceImp implements ExpensesLocalDataSource {
       whereArgs.add(endDate.toIso8601String());
     }
 
-    final where = whereClauses.isNotEmpty ? whereClauses.join(' AND ') : null;
+    whereClauses.add('transaction_type = ?');
+    whereArgs.add('expense');
 
+    final where = whereClauses.isNotEmpty ? whereClauses.join(' AND ') : null;
+    print("Where: $where whereArgs: $whereArgs");
     final result = await db.query(
       'transactions',
       where: where,

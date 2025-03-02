@@ -25,6 +25,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Continue": MessageLookupByLibrary.simpleMessage("Continue"),
         "ForgetPassword":
             MessageLookupByLibrary.simpleMessage("Forgot Password?"),
+        "addMainBudget":
+            MessageLookupByLibrary.simpleMessage("Add Main Budget"),
         "agreeTerms": MessageLookupByLibrary.simpleMessage(
             "You must agree to our Terms of Use and Privacy Policy."),
         "analysis": MessageLookupByLibrary.simpleMessage("Analysis"),
@@ -85,6 +87,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "no": MessageLookupByLibrary.simpleMessage("No"),
         "noInternetConnection":
             MessageLookupByLibrary.simpleMessage("No Internet Connection"),
+        "noTransactions":
+            MessageLookupByLibrary.simpleMessage("No transactions This Month"),
         "ohSnap": MessageLookupByLibrary.simpleMessage("Oh Snap!"),
         "onboardingSubtitle1": MessageLookupByLibrary.simpleMessage(
             "Easily monitor where your money goes, set spending limits, and make informed financial decisions to stay on top of your budget."),
@@ -139,13 +143,16 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Spent this month"),
         "submit": MessageLookupByLibrary.simpleMessage("Submit"),
         "termsOfUse": MessageLookupByLibrary.simpleMessage("Terms of Use"),
+        "today": MessageLookupByLibrary.simpleMessage("Today"),
         "transcations": MessageLookupByLibrary.simpleMessage("Transactions"),
+        "tryAgain": MessageLookupByLibrary.simpleMessage("Try Again"),
         "userCancelledSignIn":
             MessageLookupByLibrary.simpleMessage("User cancelled sign-in."),
         "userisNull": MessageLookupByLibrary.simpleMessage("User is Null"),
         "username": MessageLookupByLibrary.simpleMessage("Username"),
         "viewMore": MessageLookupByLibrary.simpleMessage("View more"),
         "yes": MessageLookupByLibrary.simpleMessage("Yes"),
+        "yesterday": MessageLookupByLibrary.simpleMessage("Yesterday"),
         "yourAccountCreatedSubTitle": MessageLookupByLibrary.simpleMessage(
             "Welcome to Your Ultimate Shopping Destination: Your Account is Created, Unleash the Joy of Seamless Online Shopping!"),
         "yourAccountCreatedTitle": MessageLookupByLibrary.simpleMessage(

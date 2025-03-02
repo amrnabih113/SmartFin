@@ -19,10 +19,13 @@ class CategoriesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final categoriesController =
-        Get.put(CategoriesController(sl(), sl(), sl()));
+    final categoriesController = Get.put(CategoriesController(
+      sl(),
+      sl(),
+    ));
     return Scaffold(
       appBar: MyAppBar(
+        showBackButton: true,
         title: Text(AppLocalizations.current.categories,
             style: Theme.of(context).textTheme.headlineSmall),
         actions: [

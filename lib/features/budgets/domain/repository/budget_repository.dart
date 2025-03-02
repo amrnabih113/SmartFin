@@ -1,4 +1,4 @@
-import 'package:smartFin/features/budgets/domain/entites/budget_Entity.dart';
+import 'package:smartFin/features/budgets/domain/entites/budget_entity.dart';
 
 abstract class BudgetRepository {
   Future<void> setMainBudget(BudgetEntity budget);

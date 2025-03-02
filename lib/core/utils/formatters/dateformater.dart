@@ -1,6 +1,20 @@
 import 'package:intl/intl.dart';
 
 class MyDateFormatter {
+  static bool isToday(DateTime dateTime) {
+    final now = DateTime.now();
+    return dateTime.year == now.year &&
+        dateTime.month == now.month &&
+        dateTime.day == now.day;
+  }
+
+  /// Checks if the date is yesterday
+  static bool isYesterday(DateTime dateTime) {
+    final yesterday = DateTime.now().subtract(const Duration(days: 1));
+    return dateTime.year == yesterday.year &&
+        dateTime.month == yesterday.month &&
+        dateTime.day == yesterday.day;
+  }
   static String formatDate(DateTime dateTime) {
     return DateFormat('yyyy-MM-dd hh:mm:ss').format(dateTime);
   }
@@ -13,8 +27,12 @@ class MyDateFormatter {
     return DateFormat("yyyy-MM-dd hh:mm:ss").parse(dateTime);
   }
 
-  static String dateStringMonthYear(DateTime? dateTime) {
+  static String dateStringDayMonthYear(DateTime? dateTime) {
     return DateFormat('d MMM,y').format(dateTime!);
+  }
+
+  static String dateStringMonthYear(DateTime? dateTime) {
+    return DateFormat('MMMM y').format(dateTime!);
   }
 
   static String dateStringMonth(DateTime? dateTime) {

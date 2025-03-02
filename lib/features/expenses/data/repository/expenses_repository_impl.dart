@@ -125,17 +125,21 @@ class ExpensesRepositoryImpl implements ExpensesRepository {
   }
 
   @override
-  Future<List<ExpenseEntity>> getExpensesByMonth(int month, int year) async {
+  Future<List<ExpenseEntity>> getExpensesByMonth(
+      String month, String year) async {
     try {
       final userId = _myLocalStorage.readData<String>(MyTexts.userId);
       if (userId == null) {
         throw Exception('User not logged in');
       }
-      return await _expensesLocalDataSource.getExpenses(
+      print("starting");
+      final response = await _expensesLocalDataSource.getExpenses(
         userId: userId,
         month: month,
         year: year,
       );
+      print("ending ============== $response");
+      return response;
     } on DatabaseException catch (e) {
       throw Exception(e);
     } on FormatException catch (e) {
@@ -148,7 +152,7 @@ class ExpensesRepositoryImpl implements ExpensesRepository {
   }
 
   @override
-  Future<List<ExpenseEntity>> getExpensesByYear(int year) async {
+  Future<List<ExpenseEntity>> getExpensesByYear(String year) async {
     try {
       final userId = _myLocalStorage.readData<String>(MyTexts.userId);
       if (userId == null) {

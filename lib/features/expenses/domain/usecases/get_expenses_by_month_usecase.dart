@@ -6,7 +6,8 @@ class GetExpensesByMonthUsecase {
 
   GetExpensesByMonthUsecase(this._repository);
 
-  Future<List<ExpenseEntity>> execute(int month, int year) async {
+
+  Future<List<ExpenseEntity>> execute(String month, String year) async {
     return await _repository.getExpensesByMonth(month, year);
   }
 }

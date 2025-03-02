@@ -1,23 +1,23 @@
 import 'package:smartFin/features/expenses/domain/entites/expense_entity.dart';
 
 class ExpenseModel extends ExpenseEntity {
- const ExpenseModel(
+  const ExpenseModel(
       {required super.id,
       required super.categoryId,
       required super.amount,
       required super.note,
       required super.date,
-      required super.accountId,
-      required super.budgetId});
+      super.accountId,
+      super.budgetId});
 
   factory ExpenseModel.fromJson(Map<String, dynamic> json) => ExpenseModel(
-      id: json['id'],
-      categoryId: json['category_id'],
-      amount: json['amount'],
-      note: json['note'],
-      date: json['date'],
-      accountId: json['account_id'],
-      budgetId: json['budget_id']);
+      id: json['id'] ?? '',
+      categoryId: json['category_id'] ?? '',
+      amount: json['amount'] ?? 0.0,
+      note: json['note'] ?? '',
+      date: json['date'] ?? '',
+      accountId: json['account_id'] ?? '',
+      budgetId: json['budget_id'] ?? '');
 
   Map<String, dynamic> toJson() => {
         'id': id,
@@ -48,7 +48,8 @@ class ExpenseModel extends ExpenseEntity {
       budgetId: budgetId ?? this.budgetId,
     );
   }
-factory ExpenseModel.fromEntity(ExpenseEntity entity) {
+
+  factory ExpenseModel.fromEntity(ExpenseEntity entity) {
     return ExpenseModel(
       id: entity.id,
       categoryId: entity.categoryId,
@@ -71,5 +72,4 @@ factory ExpenseModel.fromEntity(ExpenseEntity entity) {
       budgetId: budgetId,
     );
   }
-  
 }

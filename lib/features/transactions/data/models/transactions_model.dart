@@ -6,8 +6,8 @@ class TransactionsModel extends TransactionEntity {
     required super.id,
     required super.userId,
     required super.categoryId,
-    required super.accountId,
-    required super.budgetId,
+     super.accountId,
+     super.budgetId,
     required super.amount,
     required super.transactionType,
     required super.note,
@@ -23,7 +23,7 @@ class TransactionsModel extends TransactionEntity {
       'account_id': accountId,
       'budget_id': budgetId,
       'amount': amount,
-      'type': transactionType,
+      'transaction_type': transactionType,
       'note': note,
       'date': date.toIso8601String(),
       'sync_status': syncStatus,
@@ -32,16 +32,16 @@ class TransactionsModel extends TransactionEntity {
 
   factory TransactionsModel.fromMap(Map<String, dynamic> map) {
     return TransactionsModel(
-      id: map['id'] as String,
-      userId: map['user_id'] as String,
-      categoryId: map['category_id'] as String,
-      accountId: map['account_id'] as String,
-      budgetId: map['budget_id'] as String,
+      id: map['id'] ?? '',
+      userId: map['user_id'] ?? '',
+      categoryId: map['category_id'] ?? '',
+      accountId: map['account_id'] ?? '',
+      budgetId: map['budget_id'] ?? '',
       amount: (map['amount'] as num).toDouble(),
-      transactionType: map['type'] as String,
-      note: map['note'] as String,
-      date: DateTime.parse(map['date'] as String),
-      syncStatus: map['sync_status'] as String,
+      transactionType: map['transaction_type'] ?? '',
+      note: map['note'] ?? '',
+      date: DateTime.parse(map['date'] ?? ''),
+      syncStatus: map['sync_status'] ?? '',
     );
   }
 
@@ -80,4 +80,3 @@ class TransactionsModel extends TransactionEntity {
     );
   }
 }
-

@@ -24,7 +24,8 @@ class TransactionInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final transactionController = Get.put(TransactionsController(sl(), sl()));
+    final transactionController =
+        Get.put(TransactionsController(sl(), sl(), sl(), sl()));
     final isDark = MyHelperFunctions.isDarkMode(context);
     return Scaffold(
       appBar: const MyAppBar(
@@ -104,21 +105,26 @@ class TransactionInfo extends StatelessWidget {
                 ),
               ),
               ItemSperator.vertical(),
-              ListTile(
-                shape: ContinuousRectangleBorder(
-                  borderRadius: BorderRadius.circular(MySizes.lg),
+              Obx(
+                () => ListTile(
+                  shape: ContinuousRectangleBorder(
+                    borderRadius: BorderRadius.circular(MySizes.lg),
+                  ),
+                  tileColor: isDark ? MyColors.darkContainer : MyColors.light,
+                  leading: Icon(Iconsax.wallet,
+                      color: isDark ? MyColors.white : MyColors.dark),
+                  title: Text(
+                    "Account",
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
+                  trailing: const Icon(Iconsax.arrow_right_3),
+                  subtitle: Text(
+                      transactionController.selectedAccount.value.name,
+                      style: Theme.of(context).textTheme.labelMedium),
+                  onTap: () async {
+                    transactionController.showAccounts();
+                  },
                 ),
-                tileColor: isDark ? MyColors.darkContainer : MyColors.light,
-                leading: Icon(Iconsax.wallet,
-                    color: isDark ? MyColors.white : MyColors.dark),
-                title: Text(
-                  "Account",
-                  style: Theme.of(context).textTheme.titleLarge,
-                ),
-                trailing: const Icon(Iconsax.arrow_right_3),
-                subtitle: Text("Cash",
-                    style: Theme.of(context).textTheme.labelMedium),
-                onTap: () {},
               ),
               ItemSperator.vertical(),
               Obx(

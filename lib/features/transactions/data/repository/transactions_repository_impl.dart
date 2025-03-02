@@ -19,8 +19,10 @@ class TransactionsRepositoryImpl implements TransactionsRepository {
   @override
   Future<void> addTransaction(TransactionEntity transaction) async {
     try {
-      await localDatasourse
+      final responce = await localDatasourse
           .addTransaction(TransactionsModel.fromEntity(transaction));
+      print(
+          "responce: $responce =========================================================");
     } on DatabaseException catch (e) {
       throw Exception(e);
     } on FormatException catch (e) {
@@ -53,24 +55,13 @@ class TransactionsRepositoryImpl implements TransactionsRepository {
     if (userId == null) {
       throw Exception('User not found');
     }
-
     try {
-      // Get today's and the past two days' date range
-      final now = DateTime.now();
-      final todayStart = DateTime(now.year, now.month, now.day);
-      final twoDaysAgoStart = todayStart.subtract(const Duration(days: 2));
-      final todayEnd = todayStart
-          .add(const Duration(days: 1))
-          .subtract(const Duration(milliseconds: 1));
-
-      // Fetch transactions from the local data source within the range
       final List<TransactionEntity> transactions =
           await localDatasourse.getTransactions(
-        startDate: twoDaysAgoStart,
-        endDate: todayEnd,
         userId: userId,
+        limit: 5,
+        orderBy: 'date DESC',
       );
-
       return transactions;
     } on DatabaseException catch (e) {
       throw Exception(e);

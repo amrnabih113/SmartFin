@@ -94,6 +94,9 @@ class BudgetLocalDataSourseImp implements BudgetLocalDataSourse {
       whereArgs: whereArgs.isNotEmpty ? whereArgs : null,
     );
 
+    if (result.isEmpty) {
+    return [];
+  }
     return result.map((e) => BudgetModel.fromJson(e)).toList();
   }
 

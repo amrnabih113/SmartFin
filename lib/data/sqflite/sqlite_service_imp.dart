@@ -43,9 +43,12 @@ class SqliteServiceImp implements SqliteService {
     await db.execute('''
       CREATE TABLE accounts (
         id TEXT PRIMARY KEY,
-        owner_id TEXT,
+        user_id TEXT,
         name TEXT NOT NULL,
         balance REAL NOT NULL DEFAULT 0,
+        is_main INTEGER NOT NULL DEFAULT 0,
+        currency TEXT NOT NULL,
+        password TEXT NOT NULL,
         is_family_budget INTEGER NOT NULL DEFAULT 0,
         created_at TEXT DEFAULT CURRENT_TIMESTAMP,
         sync_status TEXT NOT NULL DEFAULT 'pending' CHECK(sync_status IN ('pending', 'synced', 'deleted'))
@@ -104,11 +107,11 @@ class SqliteServiceImp implements SqliteService {
       CREATE TABLE transactions (
         id TEXT PRIMARY KEY,
         user_id TEXT NOT NULL,
-        amount REAL NOT NULL,
+        amount REAL NOT NULL, 
         category_id TEXT,
         account_id TEXT,
         budget_id TEXT,
-        transaction_type TEXT NOT NULL CHECK(transaction_type IN ('income', 'expense')),
+        transaction_type TEXT NOT NULL,
         date TEXT DEFAULT CURRENT_TIMESTAMP,
         note TEXT,
         sync_status TEXT NOT NULL DEFAULT 'pending' CHECK(sync_status IN ('pending', 'synced', 'deleted')),
@@ -160,6 +163,92 @@ class SqliteServiceImp implements SqliteService {
         sync_status TEXT NOT NULL DEFAULT 'pending' CHECK(sync_status IN ('pending', 'synced', 'deleted')),
         created_at TEXT DEFAULT CURRENT_TIMESTAMP
       );
+    ''');
+    // Triggers
+    await db.execute('''
+      CREATE TRIGGER update_account_balance_on_insert
+      AFTER INSERT ON transactions
+      FOR EACH ROW
+      BEGIN
+        UPDATE accounts
+        SET balance = balance + (CASE 
+          WHEN NEW.transaction_type = 'income' THEN NEW.amount 
+          WHEN NEW.transaction_type = 'expense' THEN -NEW.amount 
+          ELSE 0 END)
+        WHERE id = NEW.account_id;
+      END;
+    ''');
+
+    await db.execute('''
+      CREATE TRIGGER update_account_balance_on_delete
+      AFTER DELETE ON transactions
+      FOR EACH ROW
+      BEGIN
+        UPDATE accounts
+        SET balance = balance - (CASE 
+          WHEN OLD.transaction_type = 'income' THEN OLD.amount 
+          WHEN OLD.transaction_type = 'expense' THEN -OLD.amount 
+          ELSE 0 END)
+        WHERE id = OLD.account_id;
+      END;
+    ''');
+
+    await db.execute('''
+      CREATE TRIGGER update_account_balance_on_update
+      AFTER UPDATE ON transactions
+      FOR EACH ROW
+      BEGIN
+        UPDATE accounts
+        SET balance = balance - (CASE 
+          WHEN OLD.transaction_type = 'income' THEN OLD.amount 
+          WHEN OLD.transaction_type = 'expense' THEN -OLD.amount 
+          ELSE 0 END)
+        WHERE id = OLD.account_id;
+
+        UPDATE accounts
+        SET balance = balance + (CASE 
+          WHEN NEW.transaction_type = 'income' THEN NEW.amount 
+          WHEN NEW.transaction_type = 'expense' THEN -NEW.amount 
+          ELSE 0 END)
+        WHERE id = NEW.account_id;
+      END;
+    ''');
+
+    await db.execute('''
+      CREATE TRIGGER update_category_count_on_insert
+      AFTER INSERT ON transactions
+      FOR EACH ROW
+      BEGIN
+        UPDATE categories
+        SET transactions_count = transactions_count + 1
+        WHERE id = NEW.category_id;
+      END;
+    ''');
+
+    await db.execute('''
+      CREATE TRIGGER update_category_count_on_delete
+      AFTER DELETE ON transactions
+      FOR EACH ROW
+      BEGIN
+        UPDATE categories
+        SET transactions_count = transactions_count - 1
+        WHERE id = OLD.category_id;
+      END;
+    ''');
+
+    await db.execute('''
+      CREATE TRIGGER update_category_count_on_update
+      AFTER UPDATE ON transactions
+      FOR EACH ROW
+      BEGIN
+        UPDATE categories
+        SET transactions_count = transactions_count - 1
+        WHERE id = OLD.category_id;
+
+        UPDATE categories
+        SET transactions_count = transactions_count + 1
+        WHERE id = NEW.category_id;
+      END;
     ''');
   }
 

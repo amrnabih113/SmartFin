@@ -3,20 +3,23 @@ import 'package:get_storage/get_storage.dart';
 class MyLocalStorage {
   late final GetStorage _storage;
 
-  static MyLocalStorage? _instacnce;
+  static MyLocalStorage? _instance;
 
-  MyLocalStorage._internal();
-
-  factory MyLocalStorage.instance() {
-    _instacnce ??= MyLocalStorage._internal();
-    return _instacnce!;
+  MyLocalStorage._internal(String bucketName) {
+    _storage = GetStorage(bucketName); // Ensure initialization
   }
 
- static Future<void> init(String bucketName) async {
-    await GetStorage.init(bucketName);
-    _instacnce= MyLocalStorage._internal(); 
-    _instacnce!._storage = GetStorage(bucketName);
+  factory MyLocalStorage.instance() {
+    if (_instance == null) {
+      throw Exception("MyLocalStorage is not initialized. Call init() first.");
     }
+    return _instance!;
+  }
+
+  static Future<void> init(String bucketName) async {
+    await GetStorage.init(bucketName);
+    _instance = MyLocalStorage._internal(bucketName);
+  }
 
   Future<void> saveData<T>(String key, T value) async {
     await _storage.write(key, value);

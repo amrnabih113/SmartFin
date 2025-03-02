@@ -6,12 +6,17 @@ import 'package:smartFin/common/styles/gradiant_icon.dart';
 import 'package:smartFin/common/styles/gradiant_text.dart';
 import 'package:smartFin/common/widgets/add_button.dart';
 import 'package:smartFin/common/widgets/budget_progress_bar.dart';
+import 'package:smartFin/common/widgets/my_filled_button.dart';
 import 'package:smartFin/common/widgets/my_profile_image.dart';
 import 'package:smartFin/core/constants/colors.dart';
 import 'package:smartFin/core/constants/images.dart';
 import 'package:smartFin/core/constants/sizes.dart';
 import 'package:smartFin/core/utils/helpers/helper_functions.dart';
+import 'package:smartFin/di.dart';
+import 'package:smartFin/features/accounts/presentation/pages/add_new_account_screen.dart';
+import 'package:smartFin/features/budgets/domain/entites/budget_entity.dart';
 import 'package:smartFin/features/home/presentation/controllers/my_household_controller.dart';
+import 'package:smartFin/generated/l10n.dart';
 
 class BalanceContainer extends StatelessWidget {
   const BalanceContainer({
@@ -21,7 +26,8 @@ class BalanceContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDark = MyHelperFunctions.isDarkMode(context);
-    final controller = Get.put(MyHouseholdController());
+    final controller =
+        Get.put(MyHouseholdController(sl(), sl(), sl(), sl(), sl(), sl()));
     return Container(
         padding: const EdgeInsets.all(MySizes.defaultSpacing),
         decoration: BoxDecoration(
@@ -54,7 +60,6 @@ class BalanceContainer extends StatelessWidget {
             ),
           ),
           ItemSperator.vertical(),
-          const BudgetProgressBar(currentAmount: 6000, totalBudget: 9000),
           ItemSperator.vertical(),
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -72,7 +77,7 @@ class BalanceContainer extends StatelessWidget {
                         Text(
                           !controller.showBalance.value
                               ? "********"
-                              : "\$ 3000.25",
+                              : "\$ ${controller.balance.value}",
                           style: Theme.of(context).textTheme.headlineMedium,
                         ),
                         IconButton(
@@ -134,12 +139,41 @@ class BalanceContainer extends StatelessWidget {
                         ),
                       )
                     ],
-                    onSelected: (value) {},
+                    onSelected: (value) {
+                      if (value == "Add Account") {
+                        Get.to(() => const AddNewAccountScreen());
+                      }
+                    },
                   )
                 ],
               )
             ],
           ),
+          ItemSperator.vertical(),
+          Obx(() {
+            final mainBudget = controller.mainBudget.value;
+            if (mainBudget == BudgetEntity.empty()) {
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Main Budget",
+                    style: Theme.of(context).textTheme.labelLarge,
+                  ),
+                  ItemSperator.vertical(),
+                  BudgetProgressBar(
+                      currentAmount: mainBudget.amount - mainBudget.usedAmount,
+                      totalBudget: mainBudget.amount),
+                ],
+              );
+            }
+
+            return MyFilledButton(
+              text: AppLocalizations.current.addMainBudget,
+              icon: Icons.add,
+              onPressed: () {},
+            );
+          }),
         ]));
   }
 }

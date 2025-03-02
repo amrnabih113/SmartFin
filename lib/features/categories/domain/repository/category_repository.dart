@@ -1,16 +1,18 @@
-import 'package:smartFin/features/categories/data/models/category_model.dart';
+import 'package:smartFin/features/categories/domain/entities/category_entity.dart';
 
 abstract class CategoryRepository {
-  Future<List<CategoryModel>> getCategories();
 
-  Future<CategoryModel> createCategory(CategoryModel category);
+  Future<CategoryEntity> getCategoryById(String categoryId);
 
-  Future<CategoryModel> updateCategory(CategoryModel category);
+  Future<List<CategoryEntity>> getAllCategories();
+
+  Future<void> createCategory(CategoryEntity category);
+
+  Future<void> updateCategory(CategoryEntity category);
+  
   Future<void> deleteCategory(String categoryId);
 
-  Future<List<CategoryModel>> getTopFiveCategories(String type);
-
-  Future<void> syncCategoriesWithRemote();
+  Future<List<CategoryEntity>> getTopFiveCategories(String type);
 
 }
 

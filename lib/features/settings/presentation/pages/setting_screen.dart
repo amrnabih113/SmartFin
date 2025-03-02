@@ -9,6 +9,7 @@ import 'package:smartFin/common/widgets/my_app_bar.dart';
 import 'package:smartFin/common/widgets/mysection_heading.dart';
 import 'package:smartFin/core/constants/sizes.dart';
 import 'package:smartFin/di.dart';
+import 'package:smartFin/features/accounts/presentation/pages/accounts_screen.dart';
 import 'package:smartFin/features/categories/presentation/pages/categories_screen.dart';
 import 'package:smartFin/features/settings/presentation/controllers/signout_controller.dart';
 import 'package:smartFin/features/settings/presentation/widgets/profile_tile.dart';
@@ -57,7 +58,7 @@ class SettingScreen extends StatelessWidget {
                           title: 'Accounts',
                           subtitle: "Manage your accounts",
                           trailing: const Icon(Iconsax.arrow_right_3),
-                          onTap: () {},
+                          onTap: () => Get.to(() => const AccountsScreen()),
                         ),
                         MySettingsMenuTile(
                           icon: const GradientIcon(

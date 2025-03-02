@@ -5,10 +5,21 @@ import 'package:smartFin/core/constants/colors.dart';
 
 class MyPieChart extends StatelessWidget {
   final List<double> sections;
+  final List<MaterialColor> colors;
 
   const MyPieChart({
     super.key,
     required this.sections,
+    this.colors = const [
+      Colors.cyan,
+      Colors.red,
+      Colors.purple,
+      Colors.yellow,
+      Colors.green,
+      Colors.pink,
+      Colors.blue,
+      Colors.orange,
+    ],
   });
 
   @override
@@ -30,16 +41,9 @@ class MyPieChart extends StatelessWidget {
   }
 
   List<PieChartSectionData> _chartSections() {
-    final gradients = [
-      MyColors.customGradient(Colors.cyan),
-      MyColors.customGradient(Colors.red),
-      MyColors.customGradient(Colors.purple),
-      MyColors.customGradient(Colors.yellow),
-      MyColors.customGradient(Colors.green),
-      MyColors.customGradient(Colors.pink),
-      MyColors.customGradient(Colors.blue),
-      MyColors.customGradient(Colors.orange),
-    ];
+    final gradients = colors.map((color) {
+      return MyColors.customGradient(color);
+    }).toList();
     return List.generate(
       sections.length,
       (index) => PieChartSectionData(
